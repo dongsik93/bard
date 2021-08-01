@@ -1,8 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-kapt'
 }
+
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 30
@@ -17,6 +18,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
 
     buildTypes {
         release {
@@ -43,25 +45,12 @@ android {
 dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.5.0'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.core:core-ktx:1.6.0'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    /* SavedState */
-    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.1"
-
-    /* Dagger2 */
-    implementation "com.google.dagger:dagger:2.35.1"
-    implementation "com.google.dagger:dagger-android:2.35.1"
-    implementation 'com.google.dagger:dagger-android-support:2.35.1'
-    kapt 'com.google.dagger:dagger-android-processor:2.35.1'
-    kapt 'com.google.dagger:dagger-compiler:2.35.1'
-
-    /* AssistedInject */
-    compileOnly "com.squareup.inject:assisted-inject-annotations-dagger2:0.5.2"
-    kapt "com.squareup.inject:assisted-inject-processor-dagger2:0.5.2"
 }
