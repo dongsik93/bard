@@ -1,5 +1,6 @@
 package com.example.bard.ui.add
 
+import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bard.BR
@@ -7,6 +8,7 @@ import com.example.bard.R
 import com.example.bard.data.AddContent
 import com.example.bard.databinding.ActivityAddBinding
 import com.example.bard.ui.base.BaseActivity
+import com.example.bard.ui.base.OnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,6 +32,13 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>() {
         binding.tvAdd.setOnClickListener {
             adapter.addItem()
         }
+
+        /* 단어장 저장 */
+        binding.tvSave.setOnClickListener(object : OnSingleClickListener() {
+            override fun onSingleClick(view: View) {
+                vm.saveNote(adapter.getAllItem())
+            }
+        })
     }
 
     private fun initRecyclerView() {

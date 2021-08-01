@@ -34,6 +34,8 @@ class AddItemAdapter(
         notifyDataSetChanged()
     }
 
+    fun getAllItem() = itemList
+
     class AddItemViewHolder(binding: ItemAddBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: AddContent) {
 
