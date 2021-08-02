@@ -1,9 +1,7 @@
 package com.example.bard.db.entity
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
+import com.example.bard.data.AddContent
 
 
 /**
@@ -18,16 +16,28 @@ import androidx.room.PrimaryKey
         parentColumns = ["id"],
         childColumns = ["note_id"],
         onDelete = ForeignKey.CASCADE
-    )]
+    )],
+    indices = [Index(value = ["note_id"])]
 )
 data class DsWordEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var id: Int,
+    var id: Int = 0,
 
     @ColumnInfo(name = "note_id")
     var noteId: Int,
 
     @ColumnInfo(name = "word")
     var word: String,
-)
+
+    @ColumnInfo(name = "meaning")
+    var meaning: String,
+) {
+    companion object {
+        fun entity(noteId: Int, item: AddContent) = DsWordEntity(
+            noteId = noteId,
+            word = item.word,
+            meaning = item.meaning,
+        )
+    }
+}

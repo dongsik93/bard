@@ -36,7 +36,7 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>() {
         /* 단어장 저장 */
         binding.tvSave.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View) {
-                vm.saveNote(adapter.getAllItem())
+                vm.saveNote(adapter.getAllItem(), binding.etTitle.text.toString())
             }
         })
     }
