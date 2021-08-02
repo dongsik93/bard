@@ -1,6 +1,7 @@
 package com.example.bard.ui.add
 
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bard.BR
@@ -36,9 +37,29 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>() {
         /* 단어장 저장 */
         binding.tvSave.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View) {
-                vm.saveNote(adapter.getAllItem(), binding.etTitle.text.toString())
+                checkData {
+                    println(">>>>>>>> all item >>>>> ${adapter.getAllItem()}")
+//                    vm.saveNote(adapter.getAllItem(), binding.etTitle.text.toString())
+                }
             }
         })
+    }
+
+    /**
+     * 유효성 검사 후 데이터 input
+     */
+    private fun checkData(func: () -> Unit) {
+        binding.apply {
+            if (etTitle.text.isEmpty()) {
+                showToast("제목을 입력해 주세요")
+            } else {
+                func.invoke()
+            }
+        }
+    }
+
+    private fun showToast(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 
     private fun initRecyclerView() {
