@@ -1,4 +1,4 @@
-package com.example.bard
+package com.example.bard.di
 
 import android.content.Context
 import androidx.room.Room
@@ -13,7 +13,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DsModule {
+object RepositoryModule {
 
     @Singleton
     @Provides

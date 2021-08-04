@@ -13,6 +13,8 @@ class DsRepository private constructor(
     private val db: DsDataBase
 ) {
 
+    private val ioDispatcher = Dispatchers.IO
+
     suspend fun saveNote(
         itemList: List<AddContent>,
         title: String,
@@ -24,7 +26,7 @@ class DsRepository private constructor(
         }
     }
 
-    private suspend fun getNoteId(title: String) = withContext(Dispatchers.IO) {
+    private suspend fun getNoteId(title: String) = withContext(ioDispatcher) {
         db.noteDao().getId(title)
     }
 
