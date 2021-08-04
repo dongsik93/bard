@@ -4,6 +4,7 @@ import com.example.bard.data.AddContent
 import com.example.bard.db.DsDataBase
 import com.example.bard.db.entity.DsNoteEntity
 import com.example.bard.db.entity.DsWordEntity
+import kotlinx.coroutines.flow.Flow
 
 class DsRepository private constructor(
     private val db: DsDataBase
@@ -19,6 +20,8 @@ class DsRepository private constructor(
             itemList.map { db.wordDao().insert(DsWordEntity.entity(noteData.id, it)) }
         }
     }
+
+    fun loadNoteTitle(): Flow<List<String>> = db.noteDao().getTitle()
 
     companion object {
 

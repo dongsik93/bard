@@ -9,6 +9,7 @@ import com.example.bard.R
 import com.example.bard.databinding.ActivityMainBinding
 import com.example.bard.ui.add.AddActivity
 import com.example.bard.ui.base.BaseActivity
+import com.example.bard.ui.note.NoteActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,9 +32,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     private fun setListener() {
-        binding.tvAdd.setOnClickListener { _v ->
+        binding.tvAdd.setOnClickListener {
             val addActivity = Intent(this, AddActivity::class.java)
             activityResult.launch(addActivity)
+        }
+
+        binding.tvNote.setOnClickListener {
+            val noteActivity = Intent(this, NoteActivity::class.java)
+            activityResult.launch(noteActivity)
         }
     }
 }

@@ -21,5 +21,4 @@ class AddViewModel @Inject constructor(
             repository.saveNote(itemList, title)
         }
     }
-    
 }

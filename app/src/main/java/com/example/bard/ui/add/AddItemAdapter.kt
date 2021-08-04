@@ -51,7 +51,6 @@ class AddItemAdapter(
 
     class AddItemViewHolder(binding: ItemAddBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: AddContent, position: Int) {
-
         }
     }
 }
