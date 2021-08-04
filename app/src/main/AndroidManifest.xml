@@ -18,8 +18,14 @@
             </intent-filter>
         </activity>
 
+        <!-- add -->
         <activity android:name=".ui.add.AddActivity" />
+
+        <!-- note -->
         <activity android:name=".ui.note.NoteActivity" />
+
+        <!-- detail -->
+        <activity android:name=".ui.detail.DetailActivity" />
     </application>
 
 </manifest>

@@ -11,6 +11,16 @@ class NoteTitleAdapter(
     private val item: List<String>
 ) : RecyclerView.Adapter<NoteTitleAdapter.NoteTitleViewHolder>() {
 
+    private var titleClickListener: TitleClickListener? = null
+
+    interface TitleClickListener {
+        fun titleClickListener(title: String)
+    }
+
+    fun titleClickListener(listener: TitleClickListener) {
+        titleClickListener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteTitleViewHolder {
         return NoteTitleViewHolder(
             DataBindingUtil.inflate(
@@ -28,9 +38,14 @@ class NoteTitleAdapter(
 
     override fun getItemCount() = item.size
 
-    class NoteTitleViewHolder(private val binding: ItemNoteTitleBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class NoteTitleViewHolder(private val binding: ItemNoteTitleBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(title: String) {
-            binding.tvNoteTitle.text = title
+            binding.tvNoteTitle.apply {
+                text = title
+                setOnClickListener {
+                    titleClickListener?.titleClickListener(title)
+                }
+            }
         }
     }
 }
