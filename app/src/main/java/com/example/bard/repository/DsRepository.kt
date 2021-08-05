@@ -4,16 +4,16 @@ import com.example.bard.data.AddContent
 import com.example.bard.db.DsDataBase
 import com.example.bard.db.entity.DsNoteEntity
 import com.example.bard.db.entity.DsWordEntity
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class DsRepository private constructor(
-    private val db: DsDataBase
+class DsRepository @Inject constructor(
+    private val db: DsDataBase,
+    private val ioDispatcher: CoroutineDispatcher
 ) {
-
-    private val ioDispatcher = Dispatchers.IO
 
     suspend fun saveNote(
         itemList: List<AddContent>,
@@ -51,9 +51,9 @@ class DsRepository private constructor(
         @Volatile
         private var INSTANCE: DsRepository? = null
 
-        fun getInstance(database: DsDataBase): DsRepository =
+        fun getInstance(database: DsDataBase, dispatcher: CoroutineDispatcher): DsRepository =
             INSTANCE ?: synchronized(this) {
-                INSTANCE ?: DsRepository(database).also { INSTANCE = it }
+                INSTANCE ?: DsRepository(database, dispatcher).also { INSTANCE = it }
             }
     }
 }

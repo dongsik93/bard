@@ -1,17 +1,18 @@
 package com.example.bard.di
 
-import com.example.bard.di.annotation.IoDisPatcher
+import com.example.bard.di.annotation.IoDispatcher
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object CoroutineModule {
 
-    @IoDisPatcher
+    @IoDispatcher
     @Provides
     fun providesIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
 }

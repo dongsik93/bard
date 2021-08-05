@@ -3,12 +3,14 @@ package com.example.bard.di
 import android.content.Context
 import androidx.room.Room
 import com.example.bard.db.DsDataBase
+import com.example.bard.di.annotation.IoDispatcher
 import com.example.bard.repository.DsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Singleton
 
 @Module
@@ -28,5 +30,8 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideRepository(database: DsDataBase): DsRepository = DsRepository.getInstance(database)
+    fun provideRepository(
+        database: DsDataBase,
+        @IoDispatcher ioDispatcher: CoroutineDispatcher
+    ): DsRepository = DsRepository.getInstance(database, ioDispatcher)
 }
