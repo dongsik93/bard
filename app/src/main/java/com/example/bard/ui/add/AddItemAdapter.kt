@@ -1,5 +1,7 @@
 package com.example.bard.ui.add
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -24,7 +26,7 @@ class AddItemAdapter(
     }
 
     override fun onBindViewHolder(holder: AddItemViewHolder, position: Int) {
-        holder.bind(itemList[position], position)
+        holder.bind(itemList, position)
     }
 
     override fun getItemCount() = itemList.size
@@ -42,15 +44,33 @@ class AddItemAdapter(
         return mutableListOf<AddContent>().also { _list ->
             itemList.forEach {
                 if (it.word.isNotEmpty() || it.meaning.isNotEmpty()) {
-                    println(">>>>>>>>>. it $it")
                     _list.add(it)
                 }
             }
         }
     }
 
-    class AddItemViewHolder(binding: ItemAddBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: AddContent, position: Int) {
+    class AddItemViewHolder(private val binding: ItemAddBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: MutableList<AddContent>, position: Int) {
+            binding.apply {
+                tvItemMeaning.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                    override fun afterTextChanged(s: Editable?) {
+                        item[position] = setList(tvItemWord.text.toString(), tvItemMeaning.text.toString())
+                    }
+                })
+
+                tvItemWord.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                    override fun afterTextChanged(s: Editable?) {
+                        item[position] = setList(tvItemWord.text.toString(), tvItemMeaning.text.toString())
+                    }
+                })
+            }
         }
+
+        fun setList(meaning: String, wor: String) = AddContent(wor, meaning)
     }
 }

@@ -39,7 +39,7 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>() {
             override fun onSingleClick(view: View) {
                 checkData {
                     println(">>>>>>>> all item >>>>> ${adapter.getAllItem()}")
-//                    vm.saveNote(adapter.getAllItem(), binding.etTitle.text.toString())
+                    vm.saveNote(adapter.getAllItem(), binding.etTitle.text.toString())
                 }
             }
         })
