@@ -57,7 +57,7 @@ class AddItemAdapter(
                     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
                     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
                     override fun afterTextChanged(s: Editable?) {
-                        item[position] = setList(tvItemWord.text.toString().trim(), tvItemMeaning.text.toString().trim())
+                        item[position] = setList(tvItemMeaning.text.toString().trim(), tvItemWord.text.toString().trim())
                     }
                 })
 
@@ -65,7 +65,7 @@ class AddItemAdapter(
                     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
                     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
                     override fun afterTextChanged(s: Editable?) {
-                        item[position] = setList(tvItemWord.text.toString().trim(), tvItemMeaning.text.toString().trim())
+                        item[position] = setList(tvItemMeaning.text.toString().trim(), tvItemWord.text.toString().trim())
                     }
                 })
             }
