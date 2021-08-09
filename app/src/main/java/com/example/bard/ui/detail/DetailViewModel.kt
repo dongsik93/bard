@@ -26,8 +26,10 @@ class DetailViewModel @Inject constructor(
             repository.findWordWithTitle(title).catch {
                 /* 에러처리 */
                 println(">>>>>>>>>> 에러에러")
+                _wordList.value = null
             }.collect {
                 println(">>>>>>>>>>>> 단어장 리스트 >>>>. $it")
+                _wordList.value = it
             }
         }
     }

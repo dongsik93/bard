@@ -1,6 +1,7 @@
 package com.example.bard.ui.detail
 
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bard.BR
 import com.example.bard.R
 import com.example.bard.databinding.ActivityDetailBinding
@@ -22,8 +23,20 @@ class DetailActivity : BaseActivity<ActivityDetailBinding, DetailViewModel>() {
         binding = getViewDataBinding()
         with(intent) {
             getStringExtra("test")?.let {
+                binding.tvDetailTitle.text = it
                 vm.findWordByTitle(it)
             }
         }
+
+        subscribeViewModel()
+    }
+
+    private fun subscribeViewModel() {
+        vm.wordList.observe(this, { _list ->
+            binding.rvDetailWords.apply {
+                layoutManager = LinearLayoutManager(this@DetailActivity)
+                adapter = DetailAdapter(_list)
+            }
+        })
     }
 }

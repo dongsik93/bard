@@ -43,9 +43,7 @@ class DsRepository @Inject constructor(
         return db.wordDao().getWordById(noteId.id).map { makeAddContent(it) }
     }
 
-    private fun makeAddContent(data: List<DsWordEntity>) =
-        mutableListOf<AddContent>().also { data.map { AddContent(it.word, it.meaning) } }
-
+    private fun makeAddContent(data: List<DsWordEntity>) = data.map { AddContent(it.word, it.meaning) }
 
     companion object {
         @Volatile
