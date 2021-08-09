@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bard.BR
 import com.example.bard.R
+import com.example.bard.constants.Constants
 import com.example.bard.databinding.ActivityNoteBinding
 import com.example.bard.ui.base.BaseActivity
 import com.example.bard.ui.detail.DetailActivity
@@ -52,7 +53,7 @@ class NoteActivity : BaseActivity<ActivityNoteBinding, NoteViewModel>() {
 
     private fun openNoteDetail(title: String) {
         val detail = Intent(this, DetailActivity::class.java).apply {
-            putExtra("test", title)
+            putExtra(Constants.NOTE_TITLE, title)
         }
         activityResult.launch(detail)
     }
