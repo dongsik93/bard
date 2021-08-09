@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.bard.data.AddContent
 import com.example.bard.repository.DsRepository
 import com.example.bard.ui.base.BaseViewModel
+import com.example.bard.ui.base.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -21,16 +22,23 @@ class DetailViewModel @Inject constructor(
     val wordList: LiveData<List<AddContent>>
         get() = _wordList
 
+    private val _error = MutableLiveData<Event<String>>()
+    val error: LiveData<Event<String>>
+        get() = _error
+
     fun findWordByTitle(title: String) {
         viewModelScope.launch {
-            repository.findWordWithTitle(title).catch {
+            repository.findWordWithTitle(title).catch { e ->
                 /* 에러처리 */
-                println(">>>>>>>>>> 에러에러")
-                _wordList.value = null
+                handleError(e)
             }.collect {
-                println(">>>>>>>>>>>> 단어장 리스트 >>>>. $it")
                 _wordList.value = it
             }
         }
+    }
+
+    private fun handleError(exception: Throwable) {
+        val message = exception.message ?: ""
+        _error.value = Event(message)
     }
 }
