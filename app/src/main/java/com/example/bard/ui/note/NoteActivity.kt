@@ -22,6 +22,7 @@ import com.example.bard.ui.base.OnSingleClickListener
 import com.example.bard.ui.detail.DetailActivity
 import com.example.bard.ui.helper.CsvHelper
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
 import java.util.*
 
 @AndroidEntryPoint
@@ -40,6 +41,8 @@ class NoteActivity : BaseActivity<ActivityNoteBinding, NoteViewModel>() {
         setUpListener()
         subscribeViewModel()
     }
+
+    private val noteTitleAdapter = NoteTitleAdapter()
 
     /**
      * csv result
@@ -102,18 +105,24 @@ class NoteActivity : BaseActivity<ActivityNoteBinding, NoteViewModel>() {
         selectCsvResult.launch(chooserIntent)
     }
 
-    private fun makeList(list: List<Array<String>>) {
+    private fun makeList(csvData: Pair<List<Array<String>>, String>) {
         val wordList = mutableListOf<AddContent>()
-        /* TODO : 단어나 뜻이 하나 없을때는 어떻게 되는지 확인해야 함 // 컬럼이 3개이상일 때는 어떻게 되는지 확인 필요 */
-        list.forEach {
+        csvData.first.forEach {
             println(it.joinToString(","))
             val word = it.joinToString(",").split(",")
             wordList.add(AddContent(word[0], word[1]))
-//            println(">>>>>>>>> result >>>>> ${it.contentDeepToString()}")
         }
 
-        println(">>>>>>>>>>>>>> wordList >>>>>>. $wordList")
-//        vm.saveNote(wordList)
+        vm.saveNote(wordList, File(csvData.second).name)
+        updateTitleList(File(csvData.second).name)
+    }
+
+    private fun updateTitleList(title: String) {
+        mutableListOf<String>().also {
+            it.addAll(noteTitleAdapter.getAllItem())
+            it.add(0, title)
+            noteTitleAdapter.updateItem(it)
+        }
     }
 
     private fun subscribeViewModel() {
@@ -121,7 +130,8 @@ class NoteActivity : BaseActivity<ActivityNoteBinding, NoteViewModel>() {
         vm.noteList.observe(this, {
             binding.apply {
                 rvNote.layoutManager = LinearLayoutManager(this@NoteActivity)
-                rvNote.adapter = NoteTitleAdapter(it).apply {
+                noteTitleAdapter.updateItem(it.toMutableList())
+                rvNote.adapter = noteTitleAdapter.apply {
                     titleClickListener(object : NoteTitleAdapter.TitleClickListener {
                         override fun titleClickListener(title: String) {
                             openNoteDetail(title)

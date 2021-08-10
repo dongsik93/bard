@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bard.R
 import com.example.bard.databinding.ItemNoteTitleBinding
 
-class NoteTitleAdapter(
-    private val item: List<String>
-) : RecyclerView.Adapter<NoteTitleAdapter.NoteTitleViewHolder>() {
+class NoteTitleAdapter : RecyclerView.Adapter<NoteTitleAdapter.NoteTitleViewHolder>() {
+
+    private var item = mutableListOf<String>()
 
     private var titleClickListener: TitleClickListener? = null
 
@@ -37,6 +37,12 @@ class NoteTitleAdapter(
     }
 
     override fun getItemCount() = item.size
+
+    fun updateItem(item: MutableList<String>) {
+        this.item = item
+    }
+
+    fun getAllItem() = item
 
     class NoteTitleViewHolder(private val binding: ItemNoteTitleBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(title: String, noteTitleAdapter: NoteTitleAdapter) {
