@@ -26,6 +26,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding, DetailViewModel>() {
         binding = getViewDataBinding()
         with(intent) {
             getStringExtra(Constants.NOTE_TITLE)?.let {
+                /* TODO : 제목 수정할 수 있도록 변경 */
                 binding.tvDetailTitle.text = it
                 vm.findWordByTitle(it)
             }
