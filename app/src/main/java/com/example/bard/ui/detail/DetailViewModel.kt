@@ -22,6 +22,9 @@ class DetailViewModel @Inject constructor(
     val wordList: LiveData<List<AddContent>>
         get() = _wordList
 
+    private val _noteId: MutableLiveData<Int> = MutableLiveData()
+    val noteId: LiveData<Int> = _noteId
+
     private val _error = MutableLiveData<Event<String>>()
     val error: LiveData<Event<String>>
         get() = _error
@@ -34,6 +37,12 @@ class DetailViewModel @Inject constructor(
             }.collect {
                 _wordList.value = it
             }
+        }
+    }
+
+    fun findIdByTitle(title: String) {
+        viewModelScope.launch {
+            _noteId.value = repository.getNoteId(title).id
         }
     }
 

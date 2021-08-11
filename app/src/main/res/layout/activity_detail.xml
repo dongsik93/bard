@@ -16,12 +16,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <TextView
+            android:id="@+id/tv_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_marginTop="@dimen/md_16"
+            android:text="수정하기"
+            app:layout_constraintTop_toBottomOf="@id/tv_detail_title"
+            app:layout_constraintEnd_toEndOf="parent" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_detail_words"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/md_16"
-            app:layout_constraintTop_toBottomOf="@id/tv_detail_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_edit"
             app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

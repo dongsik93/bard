@@ -32,7 +32,7 @@ class AddItemAdapter(
     override fun getItemCount() = itemList.size
 
     fun addItem() {
-        itemList.add(AddContent.default())
+        itemList.add(AddContent())
         notifyItemInserted(itemList.size - 1)
     }
 

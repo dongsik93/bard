@@ -28,6 +28,8 @@ class DetailAdapter(
 
     override fun getItemCount() = itemList.size
 
+    fun getAllItem() = itemList
+
     class DetailViewHolder(private val binding: ItemDetailWordBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: AddContent) {
             binding.apply {

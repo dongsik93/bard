@@ -21,12 +21,26 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>() {
     override fun getBindingVariable() = BR._all
     override fun getViewModel() = vm
 
-    private val adapter by lazy { setAdapter() }
+    private var adapter = setDefaultAdapter()
 
     override fun setActivity() {
         binding = getViewDataBinding()
         initRecyclerView()
+        with(intent) {
+            val noteId = getIntExtra("test", -1)
+            if (noteId > 0) {
+                vm.findNoteById(noteId)
+            } else {
+                binding.rvAddContent.adapter = adapter
+            }
+        }
+
         setListener()
+        subscribeViewModel()
+    }
+
+    private fun subscribeViewModel() {
+        vm
     }
 
     private fun setListener() {
@@ -65,13 +79,12 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>() {
     private fun initRecyclerView() {
         binding.apply {
             rvAddContent.layoutManager = LinearLayoutManager(this@AddActivity)
-            rvAddContent.adapter = adapter
         }
     }
 
-    private fun setAdapter(): AddItemAdapter {
+    private fun setDefaultAdapter(): AddItemAdapter {
         val itemList = mutableListOf<AddContent>()
-        for (i in 0..3) { itemList.add(AddContent.default()) }
+        for (i in 0..3) { itemList.add(AddContent()) }
         return AddItemAdapter(itemList)
     }
 }

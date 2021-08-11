@@ -63,6 +63,7 @@ class NoteActivity : BaseActivity<ActivityNoteBinding, NoteViewModel>() {
     }
 
     private fun setUpListener() {
+        /* 불러오기 */
         binding.tvFile.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View) {
                 if (ActivityCompat.checkSelfPermission(
