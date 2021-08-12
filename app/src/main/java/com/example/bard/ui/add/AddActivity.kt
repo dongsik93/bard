@@ -31,7 +31,7 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>() {
             if (noteId > 0) {
                 vm.findNoteById(noteId)
             } else {
-                binding.rvAddContent.adapter = adapter
+                setAdapter()
             }
         }
 
@@ -40,7 +40,17 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>() {
     }
 
     private fun subscribeViewModel() {
-        vm
+        vm.noteData.observe(this, { _noteData ->
+            binding.apply {
+                etTitle.setText(_noteData.first)
+                adapter = AddItemAdapter(_noteData.second.toMutableList())
+                setAdapter()
+            }
+        })
+    }
+
+    private fun setAdapter() {
+        binding.rvAddContent.adapter = adapter
     }
 
     private fun setListener() {

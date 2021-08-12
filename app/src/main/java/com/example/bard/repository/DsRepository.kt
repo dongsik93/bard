@@ -6,9 +6,7 @@ import com.example.bard.db.DsDataBase
 import com.example.bard.db.entity.DsNoteEntity
 import com.example.bard.db.entity.DsWordEntity
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -39,6 +37,12 @@ class DsRepository @Inject constructor(
 //    suspend fun loadNoteTitle2(): List<String> = withContext(ioDispatcher) {
 //        db.noteDao().getId()
 //    }
+
+    fun test(noteId: Int): Pair<Flow<String>, Flow<List<AddContent>>> {
+        val title = db.noteDao().getTitleById(noteId)
+        val noteData = db.wordDao().getWordById(noteId).map { makeAddContent(it) }
+        return title to noteData
+    }
 
     suspend fun findWordWithTitle(title: String): Flow<List<AddContent>> {
         val noteId = db.noteDao().getId(title)
