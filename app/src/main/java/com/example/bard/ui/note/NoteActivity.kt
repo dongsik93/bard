@@ -15,6 +15,7 @@ import com.example.bard.BardBase.Companion.appContext
 import com.example.bard.R
 import com.example.bard.constants.Constants
 import com.example.bard.data.AddContent
+import com.example.bard.data.NoteData
 import com.example.bard.databinding.ActivityNoteBinding
 import com.example.bard.ui.base.BaseActivity
 import com.example.bard.ui.base.EventObserver
@@ -114,7 +115,13 @@ class NoteActivity : BaseActivity<ActivityNoteBinding, NoteViewModel>() {
             wordList.add(AddContent(word[0], word[1]))
         }
 
-        vm.saveNote(wordList, File(csvData.second).name)
+        vm.saveNote(
+            NoteData(
+                -1,
+                File(csvData.second).name,
+                wordList,
+            )
+        )
         updateTitleList(File(csvData.second).name)
     }
 

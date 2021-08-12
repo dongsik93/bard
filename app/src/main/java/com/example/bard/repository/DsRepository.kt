@@ -6,7 +6,9 @@ import com.example.bard.db.DsDataBase
 import com.example.bard.db.entity.DsNoteEntity
 import com.example.bard.db.entity.DsWordEntity
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -16,18 +18,23 @@ class DsRepository @Inject constructor(
 ) {
 
     suspend fun saveNote(
-        itemList: List<AddContent>,
-        title: String,
+        noteData: NoteData
     ) {
         db.noteDao().withTransaction {
-            db.noteDao().insert(DsNoteEntity.entity(title))
-            val noteData = getNoteId(title)
-            itemList.map { db.wordDao().insert(DsWordEntity.entity(noteData.id, it)) }
+            println(">>>>>>> noteData >>>>>> $noteData")
+            if (noteData.noteId > 0) {
+                val entity = db.noteDao().getNoteEntityById(noteData.noteId)
+                println(">>>>>>>>>>>>>> entity >>>> $entity")
+                db.noteDao().delete(entity)
+            }
+            db.noteDao().insert(DsNoteEntity.entity(noteData.title))
+            val data = getNoteId(noteData.title)
+            noteData.wordList.map { db.wordDao().insert(DsWordEntity.entity(data.id, it)) }
         }
     }
 
     suspend fun getNoteId(title: String) = withContext(ioDispatcher) {
-        db.noteDao().getId(title)
+        db.noteDao().getNoteEntityByTitle(title)
     }
 
     /* Flow */
@@ -45,7 +52,7 @@ class DsRepository @Inject constructor(
     }
 
     suspend fun findWordWithTitle(title: String): Flow<List<AddContent>> {
-        val noteId = db.noteDao().getId(title)
+        val noteId = db.noteDao().getNoteEntityByTitle(title)
         return db.wordDao().getWordById(noteId.id).map { makeAddContent(it) }
     }
 

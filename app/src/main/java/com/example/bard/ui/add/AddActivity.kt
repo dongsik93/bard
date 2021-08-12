@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bard.BR
 import com.example.bard.R
 import com.example.bard.data.AddContent
+import com.example.bard.data.NoteData
 import com.example.bard.databinding.ActivityAddBinding
 import com.example.bard.ui.base.BaseActivity
 import com.example.bard.ui.base.OnSingleClickListener
@@ -42,8 +43,8 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>() {
     private fun subscribeViewModel() {
         vm.noteData.observe(this, { _noteData ->
             binding.apply {
-                etTitle.setText(_noteData.first)
-                adapter = AddItemAdapter(_noteData.second.toMutableList())
+                etTitle.setText(_noteData.title)
+                adapter = AddItemAdapter(_noteData)
                 setAdapter()
             }
         })
@@ -63,7 +64,10 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>() {
             override fun onSingleClick(view: View) {
                 checkData {
                     println(">>>>>>>> all item >>>>> ${adapter.getAllItem()}")
-                    vm.saveNote(adapter.getAllItem(), binding.etTitle.text.toString())
+                    val noteData = adapter.getAllItem().apply {
+                        title = binding.etTitle.text.toString()
+                    }
+                    vm.saveNote(noteData)
                 }
             }
         })
@@ -95,6 +99,8 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>() {
     private fun setDefaultAdapter(): AddItemAdapter {
         val itemList = mutableListOf<AddContent>()
         for (i in 0..3) { itemList.add(AddContent()) }
-        return AddItemAdapter(itemList)
+        return AddItemAdapter(
+            NoteData(-1, "", itemList)
+        )
     }
 }

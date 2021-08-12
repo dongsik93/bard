@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.bard.data.AddContent
+import com.example.bard.data.NoteData
 import com.example.bard.repository.DsRepository
 import com.example.bard.ui.base.BaseViewModel
 import com.example.bard.ui.base.Event
@@ -47,11 +48,10 @@ class NoteViewModel @Inject constructor(
     }
 
     fun saveNote(
-        itemList: List<AddContent>,
-        title: String,
+        noteData: NoteData
     ) {
         viewModelScope.launch {
-            repository.saveNote(itemList, title)
+            repository.saveNote(noteData)
         }
     }
 }

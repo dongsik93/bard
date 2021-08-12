@@ -12,7 +12,10 @@ abstract class DsNoteDao : BaseDao<DsNoteEntity> {
     open suspend fun withTransaction(tx: suspend () -> Unit) = tx()
 
     @Query("SELECT * FROM note WHERE title = :title")
-    abstract suspend fun getId(title: String): DsNoteEntity
+    abstract suspend fun getNoteEntityByTitle(title: String): DsNoteEntity
+
+    @Query("SELECT * FROM note WHERE id = :noteId")
+    abstract suspend fun getNoteEntityById(noteId: Int): DsNoteEntity
 
     @Query("SELECT title FROM note")
     abstract fun getTitle(): Flow<List<String>>
