@@ -42,6 +42,7 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>() {
 
     private fun subscribeViewModel() {
         vm.noteData.observe(this, { _noteData ->
+            println(">>>>>>>>>> $_noteData")
             binding.apply {
                 etTitle.setText(_noteData.title)
                 adapter = AddItemAdapter(_noteData)

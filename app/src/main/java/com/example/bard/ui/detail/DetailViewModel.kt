@@ -8,8 +8,6 @@ import com.example.bard.repository.DsRepository
 import com.example.bard.ui.base.BaseViewModel
 import com.example.bard.ui.base.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -31,12 +29,7 @@ class DetailViewModel @Inject constructor(
 
     fun findWordByTitle(title: String) {
         viewModelScope.launch {
-            repository.findWordWithTitle(title).catch { e ->
-                /* 에러처리 */
-                handleError(e)
-            }.collect {
-                _wordList.value = it
-            }
+            _wordList.value = repository.findWordWithTitle(title)
         }
     }
 

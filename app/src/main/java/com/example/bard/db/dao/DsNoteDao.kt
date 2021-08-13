@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
 import com.example.bard.db.entity.DsNoteEntity
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 abstract class DsNoteDao : BaseDao<DsNoteEntity> {
@@ -18,8 +17,8 @@ abstract class DsNoteDao : BaseDao<DsNoteEntity> {
     abstract suspend fun getNoteEntityById(noteId: Int): DsNoteEntity
 
     @Query("SELECT title FROM note")
-    abstract fun getTitle(): Flow<List<String>>
+    abstract suspend fun getTitle(): List<String>
 
     @Query("SELECT title FROM note WHERE id = :noteId")
-    abstract fun getTitleById(noteId: Int): Flow<String>
+    abstract suspend fun getTitleById(noteId: Int): String
 }

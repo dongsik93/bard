@@ -3,14 +3,11 @@ package com.example.bard.ui.note
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.bard.data.AddContent
 import com.example.bard.data.NoteData
 import com.example.bard.repository.DsRepository
 import com.example.bard.ui.base.BaseViewModel
 import com.example.bard.ui.base.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -32,13 +29,7 @@ class NoteViewModel @Inject constructor(
 
     private fun loadNoteList() {
         viewModelScope.launch {
-            repository.loadNoteTitle().catch { e ->
-                /* 에러 */
-                handleError(e)
-            }.collect {
-                /* 성공 */
-                _noteList.value = it
-            }
+            _noteList.value = repository.loadNoteTitle()
         }
     }
 

@@ -34,10 +34,14 @@ data class DsWordEntity(
     var meaning: String,
 ) {
     companion object {
-        fun entity(noteId: Int, item: AddContent) = DsWordEntity(
-            noteId = noteId,
-            word = item.word,
-            meaning = item.meaning,
-        )
+        fun entity(noteId: Int, item: AddContent): DsWordEntity {
+            println(">>>>>>> item >>>>>>. $item")
+
+            return DsWordEntity(
+                noteId = noteId,
+                word = item.word,
+                meaning = item.meaning,
+            )
+        }
     }
 }

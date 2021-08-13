@@ -8,7 +8,6 @@ import com.example.bard.db.entity.DsWordEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -20,16 +19,18 @@ class DsRepository @Inject constructor(
     suspend fun saveNote(
         noteData: NoteData
     ) {
-        db.noteDao().withTransaction {
-            println(">>>>>>> noteData >>>>>> $noteData")
-            if (noteData.noteId > 0) {
-                val entity = db.noteDao().getNoteEntityById(noteData.noteId)
-                println(">>>>>>>>>>>>>> entity >>>> $entity")
-                db.noteDao().delete(entity)
+        withContext(ioDispatcher) {
+            db.noteDao().withTransaction {
+                println(">>>>>>> noteData >>>>>> $noteData")
+                if (noteData.noteId > 0) {
+                    val entity = db.noteDao().getNoteEntityById(noteData.noteId)
+                    println(">>>>>>>>>>>>>> entity >>>> $entity")
+                    db.noteDao().delete(entity)
+                }
+                db.noteDao().insert(DsNoteEntity.entity(noteData.title))
+                val data = getNoteId(noteData.title)
+                noteData.wordList.map { db.wordDao().insert(DsWordEntity.entity(data.id, it)) }
             }
-            db.noteDao().insert(DsNoteEntity.entity(noteData.title))
-            val data = getNoteId(noteData.title)
-            noteData.wordList.map { db.wordDao().insert(DsWordEntity.entity(data.id, it)) }
         }
     }
 
@@ -37,23 +38,24 @@ class DsRepository @Inject constructor(
         db.noteDao().getNoteEntityByTitle(title)
     }
 
-    /* Flow */
-    fun loadNoteTitle(): Flow<List<String>> = db.noteDao().getTitle()
+    suspend fun loadNoteTitle(): List<String> = withContext(ioDispatcher) {
+        db.noteDao().getTitle()
+    }
 
 //    /* suspend fun */
 //    suspend fun loadNoteTitle2(): List<String> = withContext(ioDispatcher) {
 //        db.noteDao().getId()
 //    }
 
-    fun test(noteId: Int): Pair<Flow<String>, Flow<List<AddContent>>> {
+    suspend fun test(noteId: Int): Pair<String, List<AddContent>> = withContext(ioDispatcher) {
         val title = db.noteDao().getTitleById(noteId)
-        val noteData = db.wordDao().getWordById(noteId).map { makeAddContent(it) }
-        return title to noteData
+        val noteData = makeAddContent(db.wordDao().getWordById(noteId))
+        title to noteData
     }
 
-    suspend fun findWordWithTitle(title: String): Flow<List<AddContent>> {
+    suspend fun findWordWithTitle(title: String): List<AddContent> = withContext(ioDispatcher) {
         val noteId = db.noteDao().getNoteEntityByTitle(title)
-        return db.wordDao().getWordById(noteId.id).map { makeAddContent(it) }
+        makeAddContent(db.wordDao().getWordById(noteId.id))
     }
 
     private fun makeAddContent(data: List<DsWordEntity>) = data.map { AddContent(it.word, it.meaning) }
