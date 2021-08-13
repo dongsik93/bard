@@ -8,8 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bard.BR
 import com.example.bard.R
 import com.example.bard.constants.Constants
-import com.example.bard.data.AddContent
-import com.example.bard.data.NoteData
+import com.example.bard.model.AddContent
 import com.example.bard.databinding.ActivityDetailBinding
 import com.example.bard.ui.add.AddActivity
 import com.example.bard.ui.base.BaseActivity

@@ -1,4 +1,4 @@
-package com.example.bard.data
+package com.example.bard.model
 
 data class NoteData(
     val noteId: Int,

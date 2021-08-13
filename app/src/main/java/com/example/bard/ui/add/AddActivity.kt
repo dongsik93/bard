@@ -6,8 +6,8 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bard.BR
 import com.example.bard.R
-import com.example.bard.data.AddContent
-import com.example.bard.data.NoteData
+import com.example.bard.model.AddContent
+import com.example.bard.model.NoteData
 import com.example.bard.databinding.ActivityAddBinding
 import com.example.bard.ui.base.BaseActivity
 import com.example.bard.ui.base.OnSingleClickListener

@@ -1,7 +1,7 @@
 package com.example.bard.db.entity
 
 import androidx.room.*
-import com.example.bard.data.AddContent
+import com.example.bard.model.AddContent
 
 
 /**

@@ -3,7 +3,7 @@ package com.example.bard.ui.add
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.bard.data.NoteData
+import com.example.bard.model.NoteData
 import com.example.bard.repository.DsRepository
 import com.example.bard.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

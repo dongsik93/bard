@@ -3,7 +3,7 @@ package com.example.bard.ui.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.bard.data.AddContent
+import com.example.bard.model.AddContent
 import com.example.bard.repository.DsRepository
 import com.example.bard.ui.base.BaseViewModel
 import com.example.bard.ui.base.Event
