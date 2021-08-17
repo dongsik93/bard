@@ -1,8 +1,8 @@
 package com.example.bard.data.repositories
 
-import com.example.bard.data.db.DsDataBase
-import com.example.bard.data.db.entity.DsNoteEntity
-import com.example.bard.data.db.entity.DsWordEntity
+import com.example.bard.data.source.local.DsDataBase
+import com.example.bard.data.source.local.entity.DsNoteEntity
+import com.example.bard.data.source.local.entity.DsWordEntity
 import com.example.bard.domain.repositories.NoteRepository
 import com.example.bard.domain.model.AddContent
 import com.example.bard.domain.model.NoteData

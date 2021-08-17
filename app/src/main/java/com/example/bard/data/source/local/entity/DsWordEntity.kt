@@ -1,4 +1,4 @@
-package com.example.bard.data.db.entity
+package com.example.bard.data.source.local.entity
 
 import androidx.room.*
 import com.example.bard.domain.model.AddContent

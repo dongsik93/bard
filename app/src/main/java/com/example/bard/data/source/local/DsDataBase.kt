@@ -1,13 +1,13 @@
-package com.example.bard.data.db
+package com.example.bard.data.source.local
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.bard.data.db.dao.DsNoteDao
-import com.example.bard.data.db.dao.DsWordDao
-import com.example.bard.data.db.entity.DsNoteEntity
-import com.example.bard.data.db.entity.DsWordEntity
+import com.example.bard.data.source.local.dao.DsNoteDao
+import com.example.bard.data.source.local.dao.DsWordDao
+import com.example.bard.data.source.local.entity.DsNoteEntity
+import com.example.bard.data.source.local.entity.DsWordEntity
 
 @Database(
     entities = [

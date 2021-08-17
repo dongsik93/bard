@@ -2,7 +2,7 @@ package com.example.bard.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.bard.data.db.DsDataBase
+import com.example.bard.data.source.local.DsDataBase
 import com.example.bard.data.repositories.NoteRepositoryImpl
 import com.example.bard.di.annotation.IoDispatcher
 import com.example.bard.domain.repositories.NoteRepository

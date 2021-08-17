@@ -1,9 +1,9 @@
-package com.example.bard.data.db.dao
+package com.example.bard.data.source.local.dao
 
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
-import com.example.bard.data.db.entity.DsNoteEntity
+import com.example.bard.data.source.local.entity.DsNoteEntity
 
 @Dao
 abstract class DsNoteDao : BaseDao<DsNoteEntity> {

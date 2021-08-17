@@ -1,4 +1,4 @@
-package com.example.bard.data.db.dao
+package com.example.bard.data.source.local.dao
 
 import androidx.room.Delete
 import androidx.room.Insert

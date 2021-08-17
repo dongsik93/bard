@@ -1,8 +1,8 @@
-package com.example.bard.data.db.dao
+package com.example.bard.data.source.local.dao
 
 import androidx.room.Dao
 import androidx.room.Query
-import com.example.bard.data.db.entity.DsWordEntity
+import com.example.bard.data.source.local.entity.DsWordEntity
 
 @Dao
 abstract class DsWordDao : BaseDao<DsWordEntity> {
