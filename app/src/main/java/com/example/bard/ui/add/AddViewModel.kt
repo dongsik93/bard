@@ -28,12 +28,9 @@ class AddViewModel @Inject constructor(
 
     fun findNoteById(noteId: Int) {
         viewModelScope.launch {
-            val res = getNoteByIdUseCase(noteId)
-            _noteData.value = NoteData(
-                noteId,
-                res.first,
-                res.second.toMutableList(),
-            )
+            getNoteByIdUseCase(noteId).apply {
+                _noteData.value = NoteData(noteId, first, second,)
+            }
         }
     }
 }

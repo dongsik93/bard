@@ -3,9 +3,8 @@ package com.example.bard.data.repositories
 import com.example.bard.data.source.local.DsDataBase
 import com.example.bard.data.source.local.entity.DsNoteEntity
 import com.example.bard.data.source.local.entity.DsWordEntity
-import com.example.bard.domain.repositories.NoteRepository
-import com.example.bard.domain.model.AddContent
 import com.example.bard.domain.model.NoteData
+import com.example.bard.domain.repositories.NoteRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -34,20 +33,15 @@ class NoteRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getAllNoteTitle() = withContext(ioDispatcher) {
-        println(">>>>>>>>>>>>> 통과 >>>>>>>>> ")
         db.noteDao().getTitle()
     }
 
     override suspend fun getNoteById(noteId: Int) = withContext(ioDispatcher) {
-        val title = db.noteDao().getTitleById(noteId)
-        val noteData = makeAddContent(db.wordDao().getWordById(noteId))
-        title to noteData
+        db.noteDao().getTitleById(noteId) to db.wordDao().getWordById(noteId)
     }
 
     override suspend fun getWordsByTitle(title: String) = withContext(ioDispatcher) {
         val noteId = db.noteDao().getNoteEntityByTitle(title)
-        makeAddContent(db.wordDao().getWordById(noteId.id))
+        db.wordDao().getWordById(noteId.id)
     }
-
-    private fun makeAddContent(data: List<DsWordEntity>) = data.map { AddContent(it.word, it.meaning) }
 }
