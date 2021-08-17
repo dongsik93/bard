@@ -3,9 +3,9 @@ package com.example.bard.ui.note
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.bard.domain.usecases.GetNoteUseCase
-import com.example.bard.domain.usecases.SetNoteUseCase
 import com.example.bard.domain.model.NoteData
+import com.example.bard.domain.usecases.GetAllNoteTitleUseCase
+import com.example.bard.domain.usecases.SetNoteUseCase
 import com.example.bard.ui.base.BaseViewModel
 import com.example.bard.ui.base.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,12 +15,8 @@ import javax.inject.Inject
 @HiltViewModel
 class NoteViewModel @Inject constructor(
     private val setNoteUseCase: SetNoteUseCase,
-    private val getNoteUseCase: GetNoteUseCase
+    private val getAllNoteTitleUseCase: GetAllNoteTitleUseCase
 ) : BaseViewModel() {
-
-    init {
-        loadNoteList()
-    }
 
     private val _noteList: MutableLiveData<List<String>> = MutableLiveData()
     val noteList: LiveData<List<String>>
@@ -29,9 +25,13 @@ class NoteViewModel @Inject constructor(
     private val _error: MutableLiveData<Event<String>> = MutableLiveData()
     val error: LiveData<Event<String>> = _error
 
+    init {
+        loadNoteList()
+    }
+
     private fun loadNoteList() {
         viewModelScope.launch {
-            _noteList.value = getNoteUseCase.getAllNoteTitle()
+            _noteList.value = getAllNoteTitleUseCase()
         }
     }
 
@@ -40,11 +40,9 @@ class NoteViewModel @Inject constructor(
         _error.value = Event(message)
     }
 
-    fun saveNote(
-        noteData: NoteData
-    ) {
+    fun saveNote(noteData: NoteData) {
         viewModelScope.launch {
-            setNoteUseCase.saveNote(noteData)
+            setNoteUseCase(noteData)
         }
     }
 }

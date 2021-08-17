@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bard.BR
 import com.example.bard.BardBase.Companion.appContext
 import com.example.bard.R
-import com.example.bard.constants.Constants
+import com.example.bard.utils.Constants
 import com.example.bard.domain.model.AddContent
 import com.example.bard.domain.model.NoteData
 import com.example.bard.databinding.ActivityNoteBinding

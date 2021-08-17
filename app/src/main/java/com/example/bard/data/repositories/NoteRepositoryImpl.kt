@@ -34,6 +34,7 @@ class NoteRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getAllNoteTitle() = withContext(ioDispatcher) {
+        println(">>>>>>>>>>>>> 통과 >>>>>>>>> ")
         db.noteDao().getTitle()
     }
 

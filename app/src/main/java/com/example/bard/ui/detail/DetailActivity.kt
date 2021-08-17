@@ -7,7 +7,7 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bard.BR
 import com.example.bard.R
-import com.example.bard.constants.Constants
+import com.example.bard.utils.Constants
 import com.example.bard.domain.model.AddContent
 import com.example.bard.databinding.ActivityDetailBinding
 import com.example.bard.ui.add.AddActivity
