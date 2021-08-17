@@ -21,10 +21,8 @@ class DsRepository @Inject constructor(
     ) {
         withContext(ioDispatcher) {
             db.noteDao().withTransaction {
-                println(">>>>>>> noteData >>>>>> $noteData")
                 if (noteData.noteId > 0) {
                     val entity = db.noteDao().getNoteEntityById(noteData.noteId)
-                    println(">>>>>>>>>>>>>> entity >>>> $entity")
                     db.noteDao().delete(entity)
                 }
                 db.noteDao().insert(DsNoteEntity.entity(noteData.title))
@@ -42,11 +40,6 @@ class DsRepository @Inject constructor(
         db.noteDao().getTitle()
     }
 
-//    /* suspend fun */
-//    suspend fun loadNoteTitle2(): List<String> = withContext(ioDispatcher) {
-//        db.noteDao().getId()
-//    }
-
     suspend fun test(noteId: Int): Pair<String, List<AddContent>> = withContext(ioDispatcher) {
         val title = db.noteDao().getTitleById(noteId)
         val noteData = makeAddContent(db.wordDao().getWordById(noteId))
@@ -59,12 +52,6 @@ class DsRepository @Inject constructor(
     }
 
     private fun makeAddContent(data: List<DsWordEntity>) = data.map { AddContent(it.word, it.meaning) }
-
-    fun findNoteById(noteId: Int): Flow<NoteData> {
-        return flow {
-            
-        }
-    }
 
     companion object {
         @Volatile
