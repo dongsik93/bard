@@ -4,8 +4,8 @@ import com.example.bard.data.db.DsDataBase
 import com.example.bard.data.db.entity.DsNoteEntity
 import com.example.bard.data.db.entity.DsWordEntity
 import com.example.bard.domain.repositories.NoteRepository
-import com.example.bard.model.AddContent
-import com.example.bard.model.NoteData
+import com.example.bard.domain.model.AddContent
+import com.example.bard.domain.model.NoteData
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

@@ -1,8 +1,8 @@
 package com.example.bard.domain.repositories
 
 import com.example.bard.data.db.entity.DsNoteEntity
-import com.example.bard.model.AddContent
-import com.example.bard.model.NoteData
+import com.example.bard.domain.model.AddContent
+import com.example.bard.domain.model.NoteData
 
 interface NoteRepository {
     /* 단어장 저장 */

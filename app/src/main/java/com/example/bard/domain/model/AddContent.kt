@@ -1,4 +1,4 @@
-package com.example.bard.model
+package com.example.bard.domain.model
 
 data class AddContent(
     val word: String = "",

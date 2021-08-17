@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bard.R
-import com.example.bard.model.AddContent
-import com.example.bard.model.NoteData
+import com.example.bard.domain.model.AddContent
+import com.example.bard.domain.model.NoteData
 import com.example.bard.databinding.ItemAddBinding
 
 class AddItemAdapter(

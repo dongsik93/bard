@@ -14,8 +14,8 @@ import com.example.bard.BR
 import com.example.bard.BardBase.Companion.appContext
 import com.example.bard.R
 import com.example.bard.constants.Constants
-import com.example.bard.model.AddContent
-import com.example.bard.model.NoteData
+import com.example.bard.domain.model.AddContent
+import com.example.bard.domain.model.NoteData
 import com.example.bard.databinding.ActivityNoteBinding
 import com.example.bard.ui.base.BaseActivity
 import com.example.bard.ui.base.EventObserver
