@@ -1,22 +1,21 @@
-package com.example.bard.repository
+package com.example.bard.data.repositories
 
-import com.example.bard.model.AddContent
-import com.example.bard.model.NoteData
 import com.example.bard.data.db.DsDataBase
 import com.example.bard.data.db.entity.DsNoteEntity
 import com.example.bard.data.db.entity.DsWordEntity
+import com.example.bard.domain.repositories.NoteRepository
+import com.example.bard.model.AddContent
+import com.example.bard.model.NoteData
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class DsRepository @Inject constructor(
+class NoteRepositoryImpl @Inject constructor(
     private val db: DsDataBase,
     private val ioDispatcher: CoroutineDispatcher
-) {
+) : NoteRepository {
 
-    suspend fun saveNote(
-        noteData: NoteData
-    ) {
+    override suspend fun saveNote(noteData: NoteData) {
         withContext(ioDispatcher) {
             db.noteDao().withTransaction {
                 if (noteData.noteId > 0) {
@@ -30,34 +29,24 @@ class DsRepository @Inject constructor(
         }
     }
 
-    suspend fun getNoteId(title: String) = withContext(ioDispatcher) {
+    override suspend fun getNoteId(title: String) = withContext(ioDispatcher) {
         db.noteDao().getNoteEntityByTitle(title)
     }
 
-    suspend fun loadNoteTitle(): List<String> = withContext(ioDispatcher) {
+    override suspend fun getAllNoteTitle() = withContext(ioDispatcher) {
         db.noteDao().getTitle()
     }
 
-    suspend fun test(noteId: Int): Pair<String, List<AddContent>> = withContext(ioDispatcher) {
+    override suspend fun getNoteById(noteId: Int) = withContext(ioDispatcher) {
         val title = db.noteDao().getTitleById(noteId)
         val noteData = makeAddContent(db.wordDao().getWordById(noteId))
         title to noteData
     }
 
-    suspend fun findWordWithTitle(title: String): List<AddContent> = withContext(ioDispatcher) {
+    override suspend fun getWordsByTitle(title: String) = withContext(ioDispatcher) {
         val noteId = db.noteDao().getNoteEntityByTitle(title)
         makeAddContent(db.wordDao().getWordById(noteId.id))
     }
 
     private fun makeAddContent(data: List<DsWordEntity>) = data.map { AddContent(it.word, it.meaning) }
-
-    companion object {
-        @Volatile
-        private var INSTANCE: DsRepository? = null
-
-        fun getInstance(database: DsDataBase, dispatcher: CoroutineDispatcher): DsRepository =
-            INSTANCE ?: synchronized(this) {
-                INSTANCE ?: DsRepository(database, dispatcher).also { INSTANCE = it }
-            }
-    }
 }

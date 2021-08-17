@@ -1,4 +1,4 @@
-package com.example.bard.db.entity
+package com.example.bard.data.db.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

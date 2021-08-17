@@ -2,7 +2,7 @@ package com.example.bard.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.bard.db.DsDataBase
+import com.example.bard.data.db.DsDataBase
 import com.example.bard.di.annotation.IoDispatcher
 import com.example.bard.repository.DsRepository
 import dagger.Module
@@ -15,7 +15,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RepositoryModule {
+object DatabaseModule {
 
     @Singleton
     @Provides
