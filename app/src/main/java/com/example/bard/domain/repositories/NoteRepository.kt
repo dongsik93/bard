@@ -6,7 +6,7 @@ import com.example.bard.domain.model.NoteData
 
 interface NoteRepository {
     /* 단어장 저장 */
-    suspend fun saveNote(noteData: NoteData)
+    suspend fun saveNote(noteData: NoteData): Int
 
     /* 단어장 id 가져오기 */
     suspend fun getNoteId(title: String): DsNoteEntity

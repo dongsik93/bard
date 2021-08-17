@@ -14,19 +14,19 @@ class NoteRepositoryImpl @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher
 ) : NoteRepository {
 
-    override suspend fun saveNote(noteData: NoteData) {
-        withContext(ioDispatcher) {
-            db.noteDao().withTransaction {
-                if (noteData.noteId > 0) {
-                    val entity = db.noteDao().getNoteEntityById(noteData.noteId)
-                    db.noteDao().delete(entity)
-                }
-                db.noteDao().insert(DsNoteEntity.entity(noteData.title))
-                val data = getNoteId(noteData.title)
-                noteData.wordList.map { db.wordDao().insert(DsWordEntity.entity(data.id, it)) }
+    override suspend fun saveNote(noteData: NoteData) = withContext(ioDispatcher) {
+        var noteId = 0
+        db.noteDao().withTransaction {
+            if (noteData.noteId > 0) {
+                val entity = db.noteDao().getNoteEntityById(noteData.noteId)
+                db.noteDao().delete(entity)
             }
+            noteId = db.noteDao().insert(DsNoteEntity.entity(noteData.title)).toInt()
+            noteData.wordList.map { db.wordDao().insert(DsWordEntity.entity(noteId, it)) }
         }
+        noteId
     }
+
 
     override suspend fun getNoteId(title: String) = withContext(ioDispatcher) {
         db.noteDao().getNoteEntityByTitle(title)

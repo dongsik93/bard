@@ -10,6 +10,7 @@ import com.example.bard.domain.model.AddContent
 import com.example.bard.domain.model.NoteData
 import com.example.bard.databinding.ActivityAddBinding
 import com.example.bard.ui.base.BaseActivity
+import com.example.bard.ui.base.EventObserver
 import com.example.bard.ui.base.OnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,12 +43,17 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>() {
 
     private fun subscribeViewModel() {
         vm.noteData.observe(this, { _noteData ->
-            println(">>>>>>>>>> $_noteData")
             binding.apply {
                 etTitle.setText(_noteData.title)
                 adapter = AddItemAdapter(_noteData)
                 setAdapter()
             }
+        })
+
+        /* TODO : 수정했을 때 목록화면으로가서 변경된 이력으로 보여주기 */
+        vm.success.observe(this, EventObserver {
+            showToast("단어장 생성이 완료되었습니다.")
+            finish()
         })
     }
 
@@ -64,7 +70,6 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>() {
         binding.tvSave.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View) {
                 checkData {
-                    println(">>>>>>>> all item >>>>> ${adapter.getAllItem()}")
                     val noteData = adapter.getAllItem().apply {
                         title = binding.etTitle.text.toString()
                     }

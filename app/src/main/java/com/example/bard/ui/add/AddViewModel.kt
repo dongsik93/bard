@@ -7,6 +7,7 @@ import com.example.bard.domain.model.NoteData
 import com.example.bard.domain.usecases.GetNoteByIdUseCase
 import com.example.bard.domain.usecases.SetNoteUseCase
 import com.example.bard.ui.base.BaseViewModel
+import com.example.bard.ui.base.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,9 +21,12 @@ class AddViewModel @Inject constructor(
     private val _noteData: MutableLiveData<NoteData> = MutableLiveData()
     val noteData: LiveData<NoteData> = _noteData
 
+    private val _success: MutableLiveData<Event<Int>> = MutableLiveData()
+    val success: LiveData<Event<Int>> = _success
+
     fun saveNote(noteItem: NoteData, ) {
         viewModelScope.launch {
-            setNoteUseCase(noteItem)
+            _success.value = Event(setNoteUseCase(noteItem))
         }
     }
 

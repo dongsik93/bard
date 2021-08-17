@@ -5,7 +5,5 @@ import com.example.bard.domain.repositories.NoteRepository
 import javax.inject.Inject
 
 class SetNoteUseCase @Inject constructor(private val repository: NoteRepository) {
-    suspend operator fun invoke(noteData: NoteData, ) {
-        repository.saveNote(noteData)
-    }
+    suspend operator fun invoke(noteData: NoteData) = repository.saveNote(noteData)
 }
