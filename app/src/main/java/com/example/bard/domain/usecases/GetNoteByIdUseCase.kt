@@ -9,14 +9,6 @@ class GetNoteByIdUseCase @Inject constructor(private val repository: NoteReposit
     /* 단어장 id로 단어장 제목, 내용 가져오기 */
     suspend operator fun invoke(noteId: Int): Pair<String, MutableList<AddContent>> {
         val res = repository.getNoteById(noteId)
-        return res.first to makeAddContent(res.second)
-    }
-
-    private fun makeAddContent(data: List<DsWordEntity>): MutableList<AddContent> {
-        return mutableListOf<AddContent>().also { _list ->
-            data.forEach {
-                _list.add(AddContent(it.word, it.meaning))
-            }
-        }
+        return res.first to DsWordEntity.makeAddContent(res.second)
     }
 }

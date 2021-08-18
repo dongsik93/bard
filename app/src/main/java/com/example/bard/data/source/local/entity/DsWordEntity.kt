@@ -3,7 +3,6 @@ package com.example.bard.data.source.local.entity
 import androidx.room.*
 import com.example.bard.domain.model.AddContent
 
-
 /**
  * DsWordEntity
  * @desc 단어 table
@@ -40,6 +39,14 @@ data class DsWordEntity(
                 word = item.word,
                 meaning = item.meaning,
             )
+        }
+
+        fun makeAddContent(data: List<DsWordEntity>): MutableList<AddContent> {
+            return mutableListOf<AddContent>().also { _list ->
+                data.forEach { entity ->
+                    _list.add(AddContent(entity.word, entity.meaning))
+                }
+            }
         }
     }
 }
