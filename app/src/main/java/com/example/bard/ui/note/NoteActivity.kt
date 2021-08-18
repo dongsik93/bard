@@ -14,16 +14,12 @@ import com.example.bard.BR
 import com.example.bard.BardBase.Companion.appContext
 import com.example.bard.R
 import com.example.bard.databinding.ActivityNoteBinding
-import com.example.bard.domain.model.AddContent
-import com.example.bard.domain.model.NoteData
 import com.example.bard.ui.base.BaseActivity
 import com.example.bard.ui.base.EventObserver
 import com.example.bard.ui.base.OnSingleClickListener
 import com.example.bard.ui.detail.DetailActivity
-import com.example.bard.utils.CsvUtils
 import com.example.bard.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.File
 import java.util.*
 
 @AndroidEntryPoint
@@ -79,6 +75,7 @@ class NoteActivity : BaseActivity<ActivityNoteBinding, NoteViewModel>() {
                 ) {
                     openFileExplorer()
                 } else {
+                    /* TODO : 권한 허용 후 바로 파일선택기 열 수 있도록 */
                     requestPermissions(
                         arrayOf(
                             Manifest.permission.WRITE_EXTERNAL_STORAGE,
