@@ -13,7 +13,6 @@ import java.io.*
 class CsvUtils {
     fun readCsvData(path: Uri?): Pair<List<Array<String>>, String> {
         return try {
-            println(">>>>>>>>>> realPath ${getRealPath(path)}")
             val realPath = getRealPath(path)
             FileReader(realPath).use { fr ->
                 val dataList = arrayListOf<Array<String>>()

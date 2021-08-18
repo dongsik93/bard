@@ -50,7 +50,7 @@ class NoteActivity : BaseActivity<ActivityNoteBinding, NoteViewModel>() {
      */
     private val selectCsvResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { _result ->
         if (_result.resultCode == Activity.RESULT_OK) {
-            makeList(CsvUtils().readCsvData(_result.data?.data))
+            vm.saveUri(_result.data?.data)
         }
     }
 
@@ -109,24 +109,14 @@ class NoteActivity : BaseActivity<ActivityNoteBinding, NoteViewModel>() {
         selectCsvResult.launch(chooserIntent)
     }
 
-    private fun makeList(csvData: Pair<List<Array<String>>, String>) {
-        val wordList = mutableListOf<AddContent>()
-        csvData.first.forEach {
-            val word = it.joinToString(",").split(",")
-            wordList.add(AddContent(word[0], word[1]))
-        }
-
-        vm.saveNote(
-            NoteData(-1, File(csvData.second).name, wordList,)
-        )
-        updateTitleList(File(csvData.second).name)
-    }
-
     private fun updateTitleList(title: String) {
-        mutableListOf<String>().also {
-            it.addAll(noteTitleAdapter.getAllItem())
-            it.add(0, title)
-            noteTitleAdapter.updateItem(it)
+        mutableListOf<String>().also { _list ->
+            _list.addAll(noteTitleAdapter.getAllItem())
+            _list.add(0, title)
+            noteTitleAdapter.apply {
+                updateItem(_list)
+                notifyItemChanged(0)
+            }
         }
     }
 
@@ -144,6 +134,11 @@ class NoteActivity : BaseActivity<ActivityNoteBinding, NoteViewModel>() {
                     })
                 }
             }
+        })
+
+        /* csv file title */
+        vm.csvTitle.observe(this, {
+            updateTitleList(it)
         })
 
         /* 에러 */

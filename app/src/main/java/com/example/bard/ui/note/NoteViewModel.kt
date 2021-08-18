@@ -1,11 +1,11 @@
 package com.example.bard.ui.note
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.bard.domain.model.NoteData
 import com.example.bard.domain.usecases.GetAllNoteTitleUseCase
-import com.example.bard.domain.usecases.SetNoteUseCase
+import com.example.bard.domain.usecases.SetUriUseCase
 import com.example.bard.ui.base.BaseViewModel
 import com.example.bard.ui.base.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,13 +14,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NoteViewModel @Inject constructor(
-    private val setNoteUseCase: SetNoteUseCase,
-    private val getAllNoteTitleUseCase: GetAllNoteTitleUseCase
+    private val setUriUseCase: SetUriUseCase,
+    private val getAllNoteTitleUseCase: GetAllNoteTitleUseCase,
 ) : BaseViewModel() {
 
     private val _noteList: MutableLiveData<List<String>> = MutableLiveData()
     val noteList: LiveData<List<String>>
         get() = _noteList
+
+    private val _csvTitle: MutableLiveData<String> = MutableLiveData()
+    val csvTitle: LiveData<String> = _csvTitle
 
     private val _error: MutableLiveData<Event<String>> = MutableLiveData()
     val error: LiveData<Event<String>> = _error
@@ -35,14 +38,14 @@ class NoteViewModel @Inject constructor(
         }
     }
 
+    fun saveUri(uri: Uri?) {
+        viewModelScope.launch {
+            _csvTitle.value = setUriUseCase(uri)
+        }
+    }
+
     private fun handleError(exception: Throwable) {
         val message = exception.message ?: ""
         _error.value = Event(message)
-    }
-
-    fun saveNote(noteData: NoteData) {
-        viewModelScope.launch {
-            setNoteUseCase(noteData)
-        }
     }
 }
