@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Bard">
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".presentation.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,13 +23,13 @@
         </activity>
 
         <!-- add -->
-        <activity android:name=".ui.add.AddActivity" />
+        <activity android:name=".presentation.add.AddActivity" />
 
         <!-- note -->
-        <activity android:name=".ui.note.NoteActivity" />
+        <activity android:name=".presentation.note.NoteActivity" />
 
         <!-- detail -->
-        <activity android:name=".ui.detail.DetailActivity" />
+        <activity android:name=".presentation.detail.DetailActivity" />
     </application>
 
 </manifest>

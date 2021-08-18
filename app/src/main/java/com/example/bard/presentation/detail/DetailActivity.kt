@@ -1,4 +1,4 @@
-package com.example.bard.ui.detail
+package com.example.bard.presentation.detail
 
 import android.app.Activity
 import android.content.Intent
@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bard.BR
 import com.example.bard.R
 import com.example.bard.databinding.ActivityDetailBinding
-import com.example.bard.ui.add.AddActivity
-import com.example.bard.ui.base.BaseActivity
-import com.example.bard.ui.base.EventObserver
-import com.example.bard.ui.base.OnSingleClickListener
+import com.example.bard.presentation.add.AddActivity
+import com.example.bard.presentation.base.BaseActivity
+import com.example.bard.presentation.base.EventObserver
+import com.example.bard.presentation.base.OnSingleClickListener
 import com.example.bard.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 

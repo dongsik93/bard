@@ -1,4 +1,4 @@
-package com.example.bard.ui.base
+package com.example.bard.presentation.base
 
 import android.os.SystemClock
 import android.view.View

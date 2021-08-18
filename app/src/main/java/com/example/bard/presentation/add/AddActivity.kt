@@ -1,4 +1,4 @@
-package com.example.bard.ui.add
+package com.example.bard.presentation.add
 
 import android.content.Intent
 import android.view.View
@@ -10,9 +10,9 @@ import com.example.bard.R
 import com.example.bard.databinding.ActivityAddBinding
 import com.example.bard.domain.model.AddContent
 import com.example.bard.domain.model.NoteData
-import com.example.bard.ui.base.BaseActivity
-import com.example.bard.ui.base.EventObserver
-import com.example.bard.ui.base.OnSingleClickListener
+import com.example.bard.presentation.base.BaseActivity
+import com.example.bard.presentation.base.EventObserver
+import com.example.bard.presentation.base.OnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

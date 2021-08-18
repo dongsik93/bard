@@ -1,6 +1,6 @@
-package com.example.bard.ui
+package com.example.bard.presentation
 
-import com.example.bard.ui.base.BaseViewModel
+import com.example.bard.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

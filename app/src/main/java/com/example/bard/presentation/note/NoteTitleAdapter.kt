@@ -1,4 +1,4 @@
-package com.example.bard.ui.note
+package com.example.bard.presentation.note
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

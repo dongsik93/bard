@@ -1,4 +1,4 @@
-package com.example.bard.ui
+package com.example.bard.presentation
 
 import android.app.Activity
 import android.content.Intent
@@ -7,9 +7,9 @@ import androidx.activity.viewModels
 import com.example.bard.BR
 import com.example.bard.R
 import com.example.bard.databinding.ActivityMainBinding
-import com.example.bard.ui.add.AddActivity
-import com.example.bard.ui.base.BaseActivity
-import com.example.bard.ui.note.NoteActivity
+import com.example.bard.presentation.add.AddActivity
+import com.example.bard.presentation.base.BaseActivity
+import com.example.bard.presentation.note.NoteActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

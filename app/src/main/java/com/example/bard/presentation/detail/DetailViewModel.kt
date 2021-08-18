@@ -1,4 +1,4 @@
-package com.example.bard.ui.detail
+package com.example.bard.presentation.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,8 +7,8 @@ import com.example.bard.domain.model.NoteData
 import com.example.bard.domain.usecases.GetNoteByIdUseCase
 import com.example.bard.domain.usecases.GetNoteIdUseCase
 import com.example.bard.domain.usecases.GetWordsByTitleUseCase
-import com.example.bard.ui.base.BaseViewModel
-import com.example.bard.ui.base.Event
+import com.example.bard.presentation.base.BaseViewModel
+import com.example.bard.presentation.base.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

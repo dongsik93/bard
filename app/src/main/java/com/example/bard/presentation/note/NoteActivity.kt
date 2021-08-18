@@ -1,4 +1,4 @@
-package com.example.bard.ui.note
+package com.example.bard.presentation.note
 
 import android.Manifest
 import android.app.Activity
@@ -14,10 +14,10 @@ import com.example.bard.BR
 import com.example.bard.BardBase.Companion.appContext
 import com.example.bard.R
 import com.example.bard.databinding.ActivityNoteBinding
-import com.example.bard.ui.base.BaseActivity
-import com.example.bard.ui.base.EventObserver
-import com.example.bard.ui.base.OnSingleClickListener
-import com.example.bard.ui.detail.DetailActivity
+import com.example.bard.presentation.base.BaseActivity
+import com.example.bard.presentation.base.EventObserver
+import com.example.bard.presentation.base.OnSingleClickListener
+import com.example.bard.presentation.detail.DetailActivity
 import com.example.bard.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*

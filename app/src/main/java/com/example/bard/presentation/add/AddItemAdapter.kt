@@ -1,4 +1,4 @@
-package com.example.bard.ui.add
+package com.example.bard.presentation.add
 
 import android.text.Editable
 import android.text.TextWatcher
