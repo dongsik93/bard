@@ -1,4 +1,4 @@
-package com.example.bard.ui.helper
+package com.example.bard.utils
 
 import android.content.Context
 import android.net.Uri
@@ -8,9 +8,9 @@ import com.opencsv.CSVReader
 import java.io.*
 
 /**
- * CsvHelper
+ * CsvUtils
  */
-class CsvHelper {
+class CsvUtils {
     fun readCsvData(path: Uri?): Pair<List<Array<String>>, String> {
         return try {
             println(">>>>>>>>>> realPath ${getRealPath(path)}")

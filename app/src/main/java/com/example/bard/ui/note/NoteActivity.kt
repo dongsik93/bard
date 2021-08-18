@@ -20,7 +20,7 @@ import com.example.bard.ui.base.BaseActivity
 import com.example.bard.ui.base.EventObserver
 import com.example.bard.ui.base.OnSingleClickListener
 import com.example.bard.ui.detail.DetailActivity
-import com.example.bard.ui.helper.CsvHelper
+import com.example.bard.utils.CsvUtils
 import com.example.bard.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
@@ -50,7 +50,7 @@ class NoteActivity : BaseActivity<ActivityNoteBinding, NoteViewModel>() {
      */
     private val selectCsvResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { _result ->
         if (_result.resultCode == Activity.RESULT_OK) {
-            makeList(CsvHelper().readCsvData(_result.data?.data))
+            makeList(CsvUtils().readCsvData(_result.data?.data))
         }
     }
 
