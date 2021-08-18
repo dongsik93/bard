@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bard.R
-import com.example.bard.domain.model.AddContent
 import com.example.bard.databinding.ItemDetailWordBinding
+import com.example.bard.domain.model.AddContent
 
 class DetailAdapter(
     private val itemList: List<AddContent>

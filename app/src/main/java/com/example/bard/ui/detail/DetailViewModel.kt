@@ -3,7 +3,6 @@ package com.example.bard.ui.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.bard.domain.model.AddContent
 import com.example.bard.domain.model.NoteData
 import com.example.bard.domain.usecases.GetNoteByIdUseCase
 import com.example.bard.domain.usecases.GetNoteIdUseCase

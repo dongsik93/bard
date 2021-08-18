@@ -10,8 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bard.BR
 import com.example.bard.R
 import com.example.bard.databinding.ActivityDetailBinding
-import com.example.bard.domain.model.AddContent
-import com.example.bard.domain.model.NoteData
 import com.example.bard.ui.add.AddActivity
 import com.example.bard.ui.base.BaseActivity
 import com.example.bard.ui.base.EventObserver
