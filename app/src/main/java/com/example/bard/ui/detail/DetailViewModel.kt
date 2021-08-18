@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.bard.domain.model.AddContent
+import com.example.bard.domain.model.NoteData
+import com.example.bard.domain.usecases.GetNoteByIdUseCase
 import com.example.bard.domain.usecases.GetNoteIdUseCase
 import com.example.bard.domain.usecases.GetWordsByTitleUseCase
 import com.example.bard.ui.base.BaseViewModel
@@ -15,11 +17,12 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailViewModel @Inject constructor(
     private val getNoteUseCase: GetNoteIdUseCase,
-    private val getWordsByTitleUseCase: GetWordsByTitleUseCase
+    private val getWordsByTitleUseCase: GetWordsByTitleUseCase,
+    private val getNoteByIdUseCase: GetNoteByIdUseCase,
 ) : BaseViewModel() {
 
-    private val _wordList: MutableLiveData<List<AddContent>> = MutableLiveData()
-    val wordList: LiveData<List<AddContent>>
+    private val _wordList: MutableLiveData<NoteData> = MutableLiveData()
+    val wordList: LiveData<NoteData>
         get() = _wordList
 
     private val _noteId: MutableLiveData<Int> = MutableLiveData()
@@ -38,6 +41,13 @@ class DetailViewModel @Inject constructor(
     fun findIdByTitle(title: String) {
         viewModelScope.launch {
             _noteId.value = getNoteUseCase(title).id
+        }
+    }
+
+    fun findNoteById(noteId: Int) {
+        viewModelScope.launch {
+            val res = getNoteByIdUseCase(noteId)
+            _wordList.value = NoteData(noteId, res.first, res.second)
         }
     }
 

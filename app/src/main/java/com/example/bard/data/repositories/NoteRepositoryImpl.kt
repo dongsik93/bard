@@ -41,7 +41,6 @@ class NoteRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getWordsByTitle(title: String) = withContext(ioDispatcher) {
-        val noteId = db.noteDao().getNoteEntityByTitle(title)
-        db.wordDao().getWordById(noteId.id)
+        db.wordDao().getWordById(db.noteDao().getNoteEntityByTitle(title).id)
     }
 }

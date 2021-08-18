@@ -59,7 +59,9 @@ class NoteActivity : BaseActivity<ActivityNoteBinding, NoteViewModel>() {
      */
     private val detailActivityResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { _result ->
         if (_result.resultCode == Activity.RESULT_OK) {
-            println(">>>>>>>>> 성공")
+            if (_result.data?.getBooleanExtra("result", false) == true) {
+                vm.loadNoteList()
+            }
         }
     }
 
@@ -110,17 +112,12 @@ class NoteActivity : BaseActivity<ActivityNoteBinding, NoteViewModel>() {
     private fun makeList(csvData: Pair<List<Array<String>>, String>) {
         val wordList = mutableListOf<AddContent>()
         csvData.first.forEach {
-            println(it.joinToString(","))
             val word = it.joinToString(",").split(",")
             wordList.add(AddContent(word[0], word[1]))
         }
 
         vm.saveNote(
-            NoteData(
-                -1,
-                File(csvData.second).name,
-                wordList,
-            )
+            NoteData(-1, File(csvData.second).name, wordList,)
         )
         updateTitleList(File(csvData.second).name)
     }

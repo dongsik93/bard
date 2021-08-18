@@ -29,7 +29,7 @@ class NoteViewModel @Inject constructor(
         loadNoteList()
     }
 
-    private fun loadNoteList() {
+    fun loadNoteList() {
         viewModelScope.launch {
             _noteList.value = getAllNoteTitleUseCase()
         }

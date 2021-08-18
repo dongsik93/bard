@@ -1,5 +1,6 @@
 package com.example.bard.ui.add
 
+import android.content.Intent
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -24,6 +25,7 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>() {
     override fun getViewModel() = vm
 
     private var adapter = setDefaultAdapter()
+    private var isEdit = false
 
     override fun setActivity() {
         binding = getViewDataBinding()
@@ -32,6 +34,7 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>() {
             val noteId = getIntExtra("test", -1)
             if (noteId > 0) {
                 vm.findNoteById(noteId)
+                isEdit = true
             } else {
                 setAdapter()
             }
@@ -50,10 +53,14 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>() {
             }
         })
 
-        /* TODO : 수정했을 때 목록화면으로가서 변경된 이력으로 보여주기 */
         vm.success.observe(this, EventObserver {
-            showToast("단어장 생성이 완료되었습니다.")
-            finish()
+            if (isEdit) {
+                showToast("단어장 수정이 완료되었습니다.")
+                setResults(it)
+            } else {
+                showToast("단어장 생성이 완료되었습니다.")
+                finish()
+            }
         })
     }
 
@@ -108,5 +115,14 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>() {
         return AddItemAdapter(
             NoteData(-1, "", itemList)
         )
+    }
+
+    private fun setResults(noteId: Int) {
+        val data = Intent().apply {
+            putExtra("result", isEdit)
+            putExtra("noteId", noteId)
+        }
+        setResult(RESULT_OK, data)
+        finish()
     }
 }

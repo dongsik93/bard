@@ -35,8 +35,6 @@ data class DsWordEntity(
 ) {
     companion object {
         fun entity(noteId: Int, item: AddContent): DsWordEntity {
-            println(">>>>>>> item >>>>>>. $item")
-
             return DsWordEntity(
                 noteId = noteId,
                 word = item.word,
