@@ -76,4 +76,20 @@ dependencies {
 
     /* csv reader */
     implementation 'com.opencsv:opencsv:4.4'
+
+    /* Retrofit*/
+    implementation("com.squareup.retrofit2:retrofit:$retrofit_version") {
+        exclude module: 'okhttp'
+    }
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    /* OkHttp */
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+
+    /* Gson */
+    implementation "com.google.code.gson:gson:$gson_version"
+
+    /* CoroutineAdapter */
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$coroutine_adapter_version"
 }
