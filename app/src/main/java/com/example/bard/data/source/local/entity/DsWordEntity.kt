@@ -41,12 +41,7 @@ data class DsWordEntity(
             )
         }
 
-        fun makeAddContent(data: List<DsWordEntity>): MutableList<AddContent> {
-            return mutableListOf<AddContent>().also { _list ->
-                data.forEach { entity ->
-                    _list.add(AddContent(entity.word, entity.meaning))
-                }
-            }
-        }
+        /* data 계층으로 로직 분리 */
+        fun makeAddContent(data: List<DsWordEntity>) = data.map { AddContent(it.word, it.meaning) }
     }
 }

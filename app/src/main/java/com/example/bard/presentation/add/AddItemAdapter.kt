@@ -15,6 +15,8 @@ class AddItemAdapter(
     private val noteItem: NoteData,
 ) : RecyclerView.Adapter<AddItemAdapter.AddItemViewHolder>() {
 
+    private val itemList = noteItem.wordList.toMutableList()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddItemViewHolder {
         return AddItemViewHolder(
             DataBindingUtil.inflate(
@@ -27,21 +29,21 @@ class AddItemAdapter(
     }
 
     override fun onBindViewHolder(holder: AddItemViewHolder, position: Int) {
-        holder.bind(noteItem.wordList, position)
+        holder.bind(itemList, position)
     }
 
-    override fun getItemCount() = noteItem.wordList.size
+    override fun getItemCount() = itemList.size
 
     fun addItem() {
-        noteItem.wordList.add(AddContent())
-        notifyItemInserted(noteItem.wordList.size - 1)
+        itemList.add(AddContent())
+        notifyItemInserted(itemList.size - 1)
     }
 
     /**
      * getAllItem
      * @desc 단어, 뜻 둘중 하나라도 있으면 추가
      */
-    fun getAllItem() = noteItem
+    fun getAllItem() = NoteData(noteItem.noteId, noteItem.title, itemList)
 
     class AddItemViewHolder(private val binding: ItemAddBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MutableList<AddContent>, position: Int) {
