@@ -75,7 +75,6 @@ class NoteActivity : BaseActivity<ActivityNoteBinding, NoteViewModel>() {
                 ) {
                     openFileExplorer()
                 } else {
-                    /* TODO : 권한 허용 후 바로 파일선택기 열 수 있도록 */
                     requestPermissions(
                         arrayOf(
                             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -85,6 +84,19 @@ class NoteActivity : BaseActivity<ActivityNoteBinding, NoteViewModel>() {
                 }
             }
         })
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 200) {
+            if (grantResults.isNotEmpty()) {
+                openFileExplorer()
+            }
+        }
     }
 
     /**
