@@ -32,6 +32,7 @@
             android:layout_marginStart="@dimen/md_24"
             android:layout_marginTop="@dimen/md_16"
             app:layout_constraintTop_toBottomOf="@id/iv_profile"
+            app:layout_constraintBottom_toTopOf="@id/cl_main_card"
             app:layout_constraintStart_toStartOf="parent" />
 
         <!-- main card -->
@@ -40,13 +41,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="@dimen/md_24"
-            android:layout_marginTop="@dimen/md_8"
-            app:layout_constraintTop_toBottomOf="@id/tv_main_title">
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintTop_toBottomOf="@id/tv_main_title"
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <com.example.bard.presentation.MainCardView
                 android:id="@+id/mcv_add"
                 android:layout_width="@dimen/md_0"
-                android:layout_height="@dimen/md_200"
+                android:layout_height="@dimen/md_180"
                 android:layout_marginStart="@dimen/md_24"
                 android:layout_marginEnd="@dimen/md_12"
                 app:layout_constraintTop_toTopOf="parent"
@@ -55,6 +57,7 @@
                 app:cardTitle="추가하기"
                 app:cardColor="@color/card1"
                 app:cardIcon="@drawable/ic_card1"/>
+
 
             <com.example.bard.presentation.MainCardView
                 android:id="@+id/mcv_list"
@@ -86,7 +89,7 @@
             <com.example.bard.presentation.MainCardView
                 android:id="@+id/mcv_etc"
                 android:layout_width="@dimen/md_0"
-                android:layout_height="@dimen/md_200"
+                android:layout_height="@dimen/md_180"
                 android:layout_marginTop="@dimen/md_16"
                 android:layout_marginStart="@dimen/md_12"
                 android:layout_marginEnd="@dimen/md_24"

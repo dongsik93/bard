@@ -4,13 +4,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/cl_card"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/md_200"
+        android:layout_height="match_parent"
         android:background="@drawable/bg_card_corner">
 
         <ImageView
             android:id="@+id/iv_card"
-            android:layout_width="@dimen/md_100"
-            android:layout_height="@dimen/md_100"
+            android:layout_width="@dimen/md_80"
+            android:layout_height="@dimen/md_80"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
