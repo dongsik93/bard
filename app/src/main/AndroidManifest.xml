@@ -30,6 +30,9 @@
 
         <!-- detail -->
         <activity android:name=".presentation.detail.DetailActivity" />
+
+        <!-- card -->
+        <activity android:name=".presentation.card.CardActivity" />
     </application>
 
 </manifest>
