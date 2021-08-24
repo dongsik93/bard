@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.bard.BR
 import com.example.bard.R
 import com.example.bard.databinding.ActivityMainBinding
@@ -24,6 +26,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     override fun setActivity() {
         binding = getViewDataBinding()
         setListener()
+        setProfile()
     }
 
     private val activityResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { _result ->
@@ -32,20 +35,28 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         }
     }
 
+    private fun setProfile() {
+        Glide.with(this)
+            .load(R.drawable.sample_image)
+            .placeholder(R.drawable.sample_image)
+            .apply(RequestOptions.circleCropTransform())
+            .into(binding.ivProfile)
+    }
+
     private fun setListener() {
-        binding.tvAdd.setOnClickListener {
-            val addActivity = Intent(this, AddActivity::class.java)
-            activityResult.launch(addActivity)
-        }
-
-        binding.tvNote.setOnClickListener {
-            val noteActivity = Intent(this, NoteActivity::class.java)
-            activityResult.launch(noteActivity)
-        }
-
-        binding.tvCard.setOnClickListener {
-            val cardActivity = Intent(this, CardActivity::class.java)
-            activityResult.launch(cardActivity)
+        binding.apply {
+            mcvAdd.setOnClickListener {
+                val addActivity = Intent(this@MainActivity, AddActivity::class.java)
+                activityResult.launch(addActivity)
+            }
+            mcvList.setOnClickListener {
+                val noteActivity = Intent(this@MainActivity, NoteActivity::class.java)
+                activityResult.launch(noteActivity)
+            }
+            mcvStudy.setOnClickListener {
+                val cardActivity = Intent(this@MainActivity, CardActivity::class.java)
+                activityResult.launch(cardActivity)
+            }
         }
     }
 }

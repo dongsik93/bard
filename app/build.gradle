@@ -91,4 +91,7 @@ dependencies {
 
     /* CoroutineAdapter */
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$coroutine_adapter_version"
+
+    /* glide */
+    implementation "com.github.bumptech.glide:glide:$glide_version"
 }
