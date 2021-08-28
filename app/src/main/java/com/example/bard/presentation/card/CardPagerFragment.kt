@@ -13,11 +13,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.bard.R
 import com.example.bard.databinding.PagerCardBinding
+import com.example.bard.domain.model.AddContent
 
 class CardPagerFragment : Fragment() {
 
     private lateinit var binding: PagerCardBinding
     private var firstRun = true
+
+    private val noteData: AddContent by lazy { arguments?.getParcelable("noteData") ?: AddContent("", "") }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,7 +33,18 @@ class CardPagerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpNoteData(noteData)
         setCardAnimation()
+    }
+
+    private fun setUpNoteData(data: AddContent) {
+        if (data.word.isNotEmpty()) {
+            binding.tvWord.text = data.word
+        }
+
+        if (data.meaning.isNotEmpty()) {
+            binding.tvMeaning.text = data.meaning
+        }
     }
 
     private fun setCardAnimation() {
@@ -46,7 +60,7 @@ class CardPagerFragment : Fragment() {
         val bottomAnimationSet = AnimatorSet()
         bottomAnimationSet.play(bottomImageValueAnimator)
             .with(animatorBuilder(binding.textViewBottom))
-            .with(animatorBuilder(binding.textViewBottom2))
+            .with(animatorBuilder(binding.tvMeaning))
 
         binding.materialMaterialShow.setOnClickListener { v ->
             if (firstRun) {
@@ -84,10 +98,10 @@ class CardPagerFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance() = CardPagerFragment().apply {
-//            arguments = Bundle().apply {
-//                putInt(MpConstants.BUNDLE.UPDATE_PAGER_FRAGMENT, imageResource)
-//            }
+        fun newInstance(noteData: AddContent) = CardPagerFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable("noteData", noteData)
+            }
         }
     }
 }

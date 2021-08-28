@@ -43,11 +43,11 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/sampleTextView"
+            android:id="@+id/tv_word"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="112dp"
-            android:text="Un sillon"
+            android:text="단어가 들어감"
             android:fontFamily="monospace"
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
@@ -58,11 +58,11 @@
             app:layout_constraintTop_toTopOf="@+id/avd_up" />
 
         <TextView
-            android:id="@+id/sampleTextViewWithIcon"
+            android:id="@+id/tv_word_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_baseline_volume_up_24"
-            android:text="see-yawn"
+            android:text="여기는 무슨 자리?"
             android:gravity="center"
             android:fontFamily="monospace"
             android:textColor="@android:color/white"
@@ -104,7 +104,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sampleTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_word" />
 
 
         <TextView
@@ -113,7 +113,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:alpha="0"
-            android:text="An armchair"
+            android:text="밑에 어디나오나?"
             android:fontFamily="monospace"
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
@@ -124,7 +124,7 @@
             app:layout_constraintTop_toTopOf="@+id/avd_bottom" />
 
         <TextView
-            android:id="@+id/textViewBottom2"
+            android:id="@+id/tv_meaning"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -133,7 +133,7 @@
             android:alpha="0"
             android:fontFamily="monospace"
             android:gravity="center"
-            android:text="Mi papa compro un sillon y una mesa de centro para la sala"
+            android:text="여기가 뜻인것 같은데?"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="@+id/avd_bottom"
             app:layout_constraintHorizontal_bias="0.497"
