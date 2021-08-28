@@ -59,7 +59,7 @@ class CardPagerFragment : Fragment() {
 
         val bottomAnimationSet = AnimatorSet()
         bottomAnimationSet.play(bottomImageValueAnimator)
-            .with(animatorBuilder(binding.textViewBottom))
+//            .with(animatorBuilder(binding.textViewBottom))
             .with(animatorBuilder(binding.tvMeaning))
 
         binding.materialMaterialShow.setOnClickListener { v ->

@@ -58,24 +58,24 @@
             app:layout_constraintTop_toTopOf="@+id/avd_up" />
 
         <TextView
-            android:id="@+id/tv_word_icon"
+            android:id="@+id/tv_listen_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_baseline_volume_up_24"
-            android:text="여기는 무슨 자리?"
+            android:text="단어 듣기 자리네"
             android:gravity="center"
             android:fontFamily="monospace"
             android:textColor="@android:color/white"
-            app:layout_constraintEnd_toEndOf="@+id/sampleTextView"
-            app:layout_constraintStart_toStartOf="@+id/sampleTextView"
-            app:layout_constraintTop_toBottomOf="@+id/sampleTextView" />
+            app:layout_constraintEnd_toEndOf="@+id/tv_word"
+            app:layout_constraintStart_toStartOf="@+id/tv_word"
+            app:layout_constraintTop_toBottomOf="@+id/tv_word" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="65dp"
             android:layout_height="65dp"
             app:cardCornerRadius="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/sampleTextView"
+            app:layout_constraintBottom_toTopOf="@+id/tv_word"
             app:layout_constraintEnd_toEndOf="@+id/avd_up"
             app:layout_constraintStart_toStartOf="@+id/avd_up"
             app:layout_constraintTop_toTopOf="@+id/avd_up">
@@ -108,7 +108,7 @@
 
 
         <TextView
-            android:id="@+id/textViewBottom"
+            android:id="@+id/tv_meaning"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -123,22 +123,22 @@
             app:layout_constraintStart_toStartOf="@+id/avd_bottom"
             app:layout_constraintTop_toTopOf="@+id/avd_bottom" />
 
-        <TextView
-            android:id="@+id/tv_meaning"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="8dp"
-            android:alpha="0"
-            android:fontFamily="monospace"
-            android:gravity="center"
-            android:text="여기가 뜻인것 같은데?"
-            android:textColor="@android:color/white"
-            app:layout_constraintEnd_toEndOf="@+id/avd_bottom"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="@+id/avd_bottom"
-            app:layout_constraintTop_toBottomOf="@+id/textViewBottom" />
+<!--        <TextView-->
+<!--            android:id="@+id/tv_meaning"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:alpha="0"-->
+<!--            android:fontFamily="monospace"-->
+<!--            android:gravity="center"-->
+<!--            android:text="여기가 뜻인것 같은데?"-->
+<!--            android:textColor="@android:color/white"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/avd_bottom"-->
+<!--            app:layout_constraintHorizontal_bias="0.497"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/avd_bottom"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/textViewBottom" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
