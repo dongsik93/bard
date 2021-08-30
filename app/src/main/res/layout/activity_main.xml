@@ -6,7 +6,6 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black"
         tools:context=".MainActivity">
 
         <ImageView
@@ -27,7 +26,7 @@
             android:layout_height="wrap_content"
             android:text="Here's\nRandom Sentences"
             android:textSize="@dimen/md_24"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_marginStart="@dimen/md_24"
             android:layout_marginTop="@dimen/md_16"
@@ -49,8 +48,8 @@
                 android:id="@+id/mcv_add"
                 android:layout_width="@dimen/md_0"
                 android:layout_height="@dimen/md_180"
-                android:layout_marginStart="@dimen/md_24"
-                android:layout_marginEnd="@dimen/md_12"
+                android:layout_marginStart="@dimen/md_16"
+                android:layout_marginEnd="@dimen/md_8"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/mcv_list"
@@ -58,13 +57,12 @@
                 app:cardColor="@color/card1"
                 app:cardIcon="@drawable/ic_card1"/>
 
-
             <com.example.bard.presentation.MainCardView
                 android:id="@+id/mcv_list"
                 android:layout_width="@dimen/md_0"
-                android:layout_height="@dimen/md_200"
-                android:layout_marginStart="@dimen/md_12"
-                android:layout_marginEnd="@dimen/md_24"
+                android:layout_height="@dimen/md_180"
+                android:layout_marginStart="@dimen/md_8"
+                android:layout_marginEnd="@dimen/md_16"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@id/mcv_add"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -75,10 +73,10 @@
             <com.example.bard.presentation.MainCardView
                 android:id="@+id/mcv_study"
                 android:layout_width="@dimen/md_0"
-                android:layout_height="@dimen/md_200"
+                android:layout_height="@dimen/md_180"
                 android:layout_marginTop="@dimen/md_16"
-                android:layout_marginStart="@dimen/md_24"
-                android:layout_marginEnd="@dimen/md_12"
+                android:layout_marginStart="@dimen/md_16"
+                android:layout_marginEnd="@dimen/md_8"
                 app:layout_constraintTop_toBottomOf="@id/mcv_add"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/mcv_etc"
@@ -91,8 +89,8 @@
                 android:layout_width="@dimen/md_0"
                 android:layout_height="@dimen/md_180"
                 android:layout_marginTop="@dimen/md_16"
-                android:layout_marginStart="@dimen/md_12"
-                android:layout_marginEnd="@dimen/md_24"
+                android:layout_marginStart="@dimen/md_8"
+                android:layout_marginEnd="@dimen/md_16"
                 app:layout_constraintTop_toBottomOf="@id/mcv_list"
                 app:layout_constraintStart_toEndOf="@id/mcv_study"
                 app:layout_constraintEnd_toEndOf="parent"
