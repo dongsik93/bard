@@ -11,14 +11,15 @@ class NoteTitleAdapter : RecyclerView.Adapter<NoteTitleAdapter.NoteTitleViewHold
 
     private var item = mutableListOf<String>()
 
-    private var titleClickListener: TitleClickListener? = null
+    private var noteItemClickListener: NoteItemClickListener? = null
 
-    interface TitleClickListener {
+    interface NoteItemClickListener {
         fun titleClickListener(title: String)
+        fun studyClickListener(title: String)
     }
 
-    fun titleClickListener(listener: TitleClickListener) {
-        titleClickListener = listener
+    fun setNoteItemClickListener(listener: NoteItemClickListener) {
+        noteItemClickListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteTitleViewHolder {
@@ -49,7 +50,13 @@ class NoteTitleAdapter : RecyclerView.Adapter<NoteTitleAdapter.NoteTitleViewHold
             binding.tvNoteTitle.apply {
                 text = title
                 setOnClickListener {
-                    noteTitleAdapter.titleClickListener?.titleClickListener(title)
+                    noteTitleAdapter.noteItemClickListener?.titleClickListener(title)
+                }
+            }
+
+            binding.tvNoteStudy.apply {
+                setOnClickListener {
+                    noteTitleAdapter.noteItemClickListener?.studyClickListener(title)
                 }
             }
         }

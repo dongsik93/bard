@@ -136,9 +136,13 @@ class NoteActivity : BaseActivity<ActivityNoteBinding, NoteViewModel>() {
                 rvNote.layoutManager = LinearLayoutManager(this@NoteActivity)
                 noteTitleAdapter.updateItem(it.toMutableList())
                 rvNote.adapter = noteTitleAdapter.apply {
-                    titleClickListener(object : NoteTitleAdapter.TitleClickListener {
+                    setNoteItemClickListener(object : NoteTitleAdapter.NoteItemClickListener {
                         override fun titleClickListener(title: String) {
                             openNoteDetail(title)
+                        }
+
+                        override fun studyClickListener(title: String) {
+                            println(">>>>>>>>> 여기도 타이틀 >>")
                         }
                     })
                 }
