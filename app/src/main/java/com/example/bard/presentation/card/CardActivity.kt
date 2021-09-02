@@ -5,10 +5,10 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.bard.BR
 import com.example.bard.R
 import com.example.bard.databinding.ActivityCardBinding
-import com.example.bard.domain.model.AddContent
+import com.example.bard.domain.model.NoteData
 import com.example.bard.presentation.base.BaseActivity
+import com.example.bard.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
-
 
 @AndroidEntryPoint
 class CardActivity : BaseActivity<ActivityCardBinding, CardViewModel>() {
@@ -23,12 +23,24 @@ class CardActivity : BaseActivity<ActivityCardBinding, CardViewModel>() {
 
     override fun setActivity() {
         binding = getViewDataBinding()
-        setUpViewPager()
+        with(intent) {
+            getStringExtra(Constants.CARD_TITLE)?.let {
+                vm.findWordByTitle(it)
+            }
+        }
+
+        setUpViewModel()
     }
 
-    private fun setUpViewPager() {
+    private fun setUpViewModel() {
+        vm.wordList.observe(this, { _noteData ->
+            setUpViewPager(_noteData)
+        })
+    }
+
+    private fun setUpViewPager(noteData: NoteData) {
         binding.vpCard.apply {
-            adapter = CardPagerAdapter(this@CardActivity, makeTestData())
+            adapter = CardPagerAdapter(this@CardActivity, noteData.wordList)
             registerOnPageChangeCallback(viewPagerCallback)
         }
     }
@@ -36,16 +48,6 @@ class CardActivity : BaseActivity<ActivityCardBinding, CardViewModel>() {
     private val viewPagerCallback: ViewPager2.OnPageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
             super.onPageSelected(position)
-            println(">>>>>>>>>>> 페이지 넘어감 >>> $position")
         }
-    }
-
-    private fun makeTestData(): List<AddContent> {
-        return listOf(
-            AddContent("단어1", "뜻 1"),
-            AddContent("단어2", "뜻 2"),
-            AddContent("단어3", "뜻 3"),
-            AddContent("단어4", "뜻 4"),
-        )
     }
 }

@@ -17,6 +17,7 @@ import com.example.bard.databinding.ActivityNoteBinding
 import com.example.bard.presentation.base.BaseActivity
 import com.example.bard.presentation.base.EventObserver
 import com.example.bard.presentation.base.OnSingleClickListener
+import com.example.bard.presentation.card.CardActivity
 import com.example.bard.presentation.detail.DetailActivity
 import com.example.bard.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
@@ -143,6 +144,7 @@ class NoteActivity : BaseActivity<ActivityNoteBinding, NoteViewModel>() {
 
                         override fun studyClickListener(title: String) {
                             println(">>>>>>>>> 여기도 타이틀 >>")
+                            openCard(title)
                         }
                     })
                 }
@@ -165,5 +167,12 @@ class NoteActivity : BaseActivity<ActivityNoteBinding, NoteViewModel>() {
             putExtra(Constants.NOTE_TITLE, title)
         }
         detailActivityResult.launch(detail)
+    }
+
+    private fun openCard(title: String) {
+        val card = Intent(this, CardActivity::class.java).apply {
+            putExtra(Constants.CARD_TITLE, title)
+        }
+        startActivity(card)
     }
 }
