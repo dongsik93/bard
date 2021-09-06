@@ -7,8 +7,10 @@ import com.example.bard.R
 import com.example.bard.databinding.ActivityCardBinding
 import com.example.bard.domain.model.NoteData
 import com.example.bard.presentation.base.BaseActivity
+import com.example.bard.presentation.ext.repeatOnStart
 import com.example.bard.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class CardActivity : BaseActivity<ActivityCardBinding, CardViewModel>() {
@@ -29,13 +31,9 @@ class CardActivity : BaseActivity<ActivityCardBinding, CardViewModel>() {
             }
         }
 
-        setUpViewModel()
-    }
-
-    private fun setUpViewModel() {
-        vm.wordList.observe(this, { _noteData ->
-            setUpViewPager(_noteData)
-        })
+        repeatOnStart {
+            vm.wordList.collect { _noteData -> setUpViewPager(_noteData) }
+        }
     }
 
     private fun setUpViewPager(noteData: NoteData) {

@@ -6,16 +6,19 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bard.BR
 import com.example.bard.R
 import com.example.bard.databinding.ActivityDetailBinding
 import com.example.bard.presentation.add.AddActivity
 import com.example.bard.presentation.base.BaseActivity
-import com.example.bard.presentation.base.EventObserver
 import com.example.bard.presentation.base.OnSingleClickListener
+import com.example.bard.presentation.ext.repeatOnStart
 import com.example.bard.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DetailActivity : BaseActivity<ActivityDetailBinding, DetailViewModel>() {
@@ -38,8 +41,13 @@ class DetailActivity : BaseActivity<ActivityDetailBinding, DetailViewModel>() {
             }
         }
 
+        repeatOnStart {
+            lifecycleScope.launch {
+                vm.eventFlow.collect { event -> handleEvent(event) }
+            }
+        }
+
         setUpListener()
-        subscribeViewModel()
     }
 
     private val editActivityResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { _result ->
@@ -52,28 +60,28 @@ class DetailActivity : BaseActivity<ActivityDetailBinding, DetailViewModel>() {
         }
     }
 
-    private fun subscribeViewModel() {
-        /* 단어리스트 */
-        vm.wordList.observe(this, { _data ->
-            binding.tvDetailTitle.text = _data.title
-            binding.rvDetailWords.apply {
-                layoutManager = LinearLayoutManager(this@DetailActivity)
-                adapter = DetailAdapter(_data.wordList)
+    private fun handleEvent(event: DetailViewModel.DetailEvent) {
+        when (event) {
+            /* 에러처리 */
+            is DetailViewModel.DetailEvent.ShowToast -> {
+                Toast.makeText(this, event.text, Toast.LENGTH_SHORT).show()
             }
-        })
-
-        /* 에러처리 */
-        vm.error.observe(this, EventObserver { message ->
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-        })
-
-        /* 수정하기 */
-        vm.noteId.observe(this, {
-            val intent = Intent(this, AddActivity::class.java).apply {
-                putExtra("test", it)
+            /* 단어리스트 */
+            is DetailViewModel.DetailEvent.WordList -> {
+                binding.tvDetailTitle.text = event.data.title
+                binding.rvDetailWords.apply {
+                    layoutManager = LinearLayoutManager(this@DetailActivity)
+                    adapter = DetailAdapter(event.data.wordList)
+                }
             }
-            editActivityResult.launch(intent)
-        })
+            /* 수정하기 */
+            is DetailViewModel.DetailEvent.NoteId -> {
+                val intent = Intent(this, AddActivity::class.java).apply {
+                    putExtra("test", event.id)
+                }
+                editActivityResult.launch(intent)
+            }
+        }
     }
 
     private fun setUpListener() {

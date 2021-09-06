@@ -137,14 +137,14 @@ class NoteActivity : BaseActivity<ActivityNoteBinding, NoteViewModel>() {
         }
     }
 
-    private fun handleEvent(event: NoteViewModel.Event) {
+    private fun handleEvent(event: NoteViewModel.NoteEvent) {
         when (event) {
             /* error */
-            is NoteViewModel.Event.ShowToast -> {
+            is NoteViewModel.NoteEvent.ShowToast -> {
                 Toast.makeText(this, event.text, Toast.LENGTH_SHORT).show()
             }
             /* 단어장 목록 */
-            is NoteViewModel.Event.NoteListTitle -> {
+            is NoteViewModel.NoteEvent.NoteListTitle -> {
                 binding.apply {
                     rvNote.layoutManager = LinearLayoutManager(this@NoteActivity)
                     noteTitleAdapter.updateItem(event.noteTitles.toMutableList())
@@ -163,7 +163,7 @@ class NoteActivity : BaseActivity<ActivityNoteBinding, NoteViewModel>() {
                 }
             }
             /* csv file title */
-            is NoteViewModel.Event.CsvTitle -> { updateTitleList(event.csvTitle) }
+            is NoteViewModel.NoteEvent.CsvTitle -> { updateTitleList(event.csvTitle) }
         }
     }
 

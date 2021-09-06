@@ -1,15 +1,14 @@
 package com.example.bard.presentation.detail
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.bard.domain.model.NoteData
 import com.example.bard.domain.usecases.GetNoteByIdUseCase
 import com.example.bard.domain.usecases.GetNoteIdUseCase
 import com.example.bard.domain.usecases.GetWordsByTitleUseCase
 import com.example.bard.presentation.base.BaseViewModel
-import com.example.bard.presentation.base.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,38 +19,37 @@ class DetailViewModel @Inject constructor(
     private val getNoteByIdUseCase: GetNoteByIdUseCase,
 ) : BaseViewModel() {
 
-    private val _wordList: MutableLiveData<NoteData> = MutableLiveData()
-    val wordList: LiveData<NoteData>
-        get() = _wordList
-
-    private val _noteId: MutableLiveData<Int> = MutableLiveData()
-    val noteId: LiveData<Int> = _noteId
-
-    private val _error = MutableLiveData<Event<String>>()
-    val error: LiveData<Event<String>>
-        get() = _error
+    private val _eventFlow = MutableSharedFlow<DetailEvent>()
+    val eventFlow = _eventFlow.asSharedFlow()
 
     fun findWordByTitle(title: String) {
         viewModelScope.launch {
-            _wordList.value = getWordsByTitleUseCase(title)
+            event(DetailEvent.WordList(getWordsByTitleUseCase(title)))
         }
     }
 
     fun findIdByTitle(title: String) {
         viewModelScope.launch {
-            _noteId.value = getNoteUseCase(title).id
+            event(DetailEvent.NoteId(getNoteUseCase(title).id))
         }
     }
 
     fun findNoteById(noteId: Int) {
         viewModelScope.launch {
             val res = getNoteByIdUseCase(noteId)
-            _wordList.value = NoteData(noteId, res.first, res.second)
+            event(DetailEvent.WordList(NoteData(noteId, res.first, res.second)))
         }
     }
 
-    private fun handleError(exception: Throwable) {
-        val message = exception.message ?: ""
-        _error.value = Event(message)
+    private fun event(event: DetailEvent) {
+        viewModelScope.launch {
+            _eventFlow.emit(event)
+        }
+    }
+
+    sealed class DetailEvent {
+        data class WordList(val data: NoteData) : DetailEvent()
+        data class NoteId(val id: Int) : DetailEvent()
+        data class ShowToast(val text: String) : DetailEvent()
     }
 }

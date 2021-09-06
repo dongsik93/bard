@@ -11,9 +11,10 @@ import com.example.bard.databinding.ActivityAddBinding
 import com.example.bard.domain.model.AddContent
 import com.example.bard.domain.model.NoteData
 import com.example.bard.presentation.base.BaseActivity
-import com.example.bard.presentation.base.EventObserver
 import com.example.bard.presentation.base.OnSingleClickListener
+import com.example.bard.presentation.ext.repeatOnStart
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>() {
@@ -40,28 +41,32 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>() {
             }
         }
 
+        repeatOnStart {
+            vm.eventFlow.collect { event -> handleEvent(event) }
+        }
+
         setListener()
-        subscribeViewModel()
     }
 
-    private fun subscribeViewModel() {
-        vm.noteData.observe(this, { _noteData ->
-            binding.apply {
-                etTitle.setText(_noteData.title)
-                adapter = AddItemAdapter(_noteData)
-                setAdapter()
+    private fun handleEvent(event: AddViewModel.AddEvent) {
+        when (event) {
+            is AddViewModel.AddEvent.Note -> {
+                binding.apply {
+                    etTitle.setText(event.data.title)
+                    adapter = AddItemAdapter(event.data)
+                    setAdapter()
+                }
             }
-        })
-
-        vm.success.observe(this, EventObserver {
-            if (isEdit) {
-                showToast("단어장 수정이 완료되었습니다.")
-                setResults(it)
-            } else {
-                showToast("단어장 생성이 완료되었습니다.")
-                finish()
+            is AddViewModel.AddEvent.Success -> {
+                if (isEdit) {
+                    showToast("단어장 수정이 완료되었습니다.")
+                    setResults(event.id)
+                } else {
+                    showToast("단어장 생성이 완료되었습니다.")
+                    finish()
+                }
             }
-        })
+        }
     }
 
     private fun setAdapter() {

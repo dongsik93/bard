@@ -17,7 +17,7 @@ class NoteViewModel @Inject constructor(
     private val getAllNoteTitleUseCase: GetAllNoteTitleUseCase,
 ) : BaseViewModel() {
 
-    private val _eventFlow = MutableSharedFlow<Event>()
+    private val _eventFlow = MutableSharedFlow<NoteEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
     init {
@@ -26,25 +26,25 @@ class NoteViewModel @Inject constructor(
 
     fun loadNoteList() {
         viewModelScope.launch {
-            event(Event.NoteListTitle(getAllNoteTitleUseCase()))
+            event(NoteEvent.NoteListTitle(getAllNoteTitleUseCase()))
         }
     }
 
     fun saveUri(uri: Uri?) {
         viewModelScope.launch {
-            event(Event.CsvTitle(setUriUseCase(uri)))
+            event(NoteEvent.CsvTitle(setUriUseCase(uri)))
         }
     }
 
-    private fun event(event: Event) {
+    private fun event(event: NoteEvent) {
         viewModelScope.launch {
             _eventFlow.emit(event)
         }
     }
 
-    sealed class Event {
-        data class NoteListTitle(val noteTitles: List<String>) : Event()
-        data class CsvTitle(val csvTitle: String) : Event()
-        data class ShowToast(val text: String) : Event()
+    sealed class NoteEvent {
+        data class NoteListTitle(val noteTitles: List<String>) : NoteEvent()
+        data class CsvTitle(val csvTitle: String) : NoteEvent()
+        data class ShowToast(val text: String) : NoteEvent()
     }
 }
