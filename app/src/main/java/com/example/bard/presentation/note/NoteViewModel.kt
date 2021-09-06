@@ -1,14 +1,13 @@
 package com.example.bard.presentation.note
 
 import android.net.Uri
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.bard.domain.usecases.GetAllNoteTitleUseCase
 import com.example.bard.domain.usecases.SetUriUseCase
 import com.example.bard.presentation.base.BaseViewModel
-import com.example.bard.presentation.base.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,15 +17,8 @@ class NoteViewModel @Inject constructor(
     private val getAllNoteTitleUseCase: GetAllNoteTitleUseCase,
 ) : BaseViewModel() {
 
-    private val _noteList: MutableLiveData<List<String>> = MutableLiveData()
-    val noteList: LiveData<List<String>>
-        get() = _noteList
-
-    private val _csvTitle: MutableLiveData<String> = MutableLiveData()
-    val csvTitle: LiveData<String> = _csvTitle
-
-    private val _error: MutableLiveData<Event<String>> = MutableLiveData()
-    val error: LiveData<Event<String>> = _error
+    private val _eventFlow = MutableSharedFlow<Event>()
+    val eventFlow = _eventFlow.asSharedFlow()
 
     init {
         loadNoteList()
@@ -34,18 +26,25 @@ class NoteViewModel @Inject constructor(
 
     fun loadNoteList() {
         viewModelScope.launch {
-            _noteList.value = getAllNoteTitleUseCase()
+            event(Event.NoteListTitle(getAllNoteTitleUseCase()))
         }
     }
 
     fun saveUri(uri: Uri?) {
         viewModelScope.launch {
-            _csvTitle.value = setUriUseCase(uri)
+            event(Event.CsvTitle(setUriUseCase(uri)))
         }
     }
 
-    private fun handleError(exception: Throwable) {
-        val message = exception.message ?: ""
-        _error.value = Event(message)
+    private fun event(event: Event) {
+        viewModelScope.launch {
+            _eventFlow.emit(event)
+        }
+    }
+
+    sealed class Event {
+        data class NoteListTitle(val noteTitles: List<String>) : Event()
+        data class CsvTitle(val csvTitle: String) : Event()
+        data class ShowToast(val text: String) : Event()
     }
 }

@@ -9,6 +9,7 @@ buildscript {
         hilt_version = '2.34.1-beta'
         kotlin_version = '1.4.32'
         livedata_ktx = '2.3.1'
+        livecycle_ktx = '2.4.0-alpha03'
         open_csv_version = '4.4'
         okhttp_version = '4.9.0'
         retrofit_version = '2.9.0'

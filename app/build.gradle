@@ -73,6 +73,7 @@ dependencies {
 
     /* liveData */
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$livedata_ktx"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$livecycle_ktx"
 
     /* csv reader */
     implementation"com.opencsv:opencsv:$open_csv_version"

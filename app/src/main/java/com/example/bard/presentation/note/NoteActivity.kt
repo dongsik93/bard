@@ -9,19 +9,21 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bard.BR
 import com.example.bard.BardBase.Companion.appContext
 import com.example.bard.R
 import com.example.bard.databinding.ActivityNoteBinding
 import com.example.bard.presentation.base.BaseActivity
-import com.example.bard.presentation.base.EventObserver
 import com.example.bard.presentation.base.OnSingleClickListener
 import com.example.bard.presentation.card.CardActivity
 import com.example.bard.presentation.detail.DetailActivity
+import com.example.bard.presentation.ext.repeatOnStart
 import com.example.bard.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class NoteActivity : BaseActivity<ActivityNoteBinding, NoteViewModel>() {
@@ -37,7 +39,12 @@ class NoteActivity : BaseActivity<ActivityNoteBinding, NoteViewModel>() {
     override fun setActivity() {
         binding = getViewDataBinding()
         setUpListener()
-        subscribeViewModel()
+
+        repeatOnStart {
+            lifecycleScope.launch {
+                vm.eventFlow.collect { event -> handleEvent(event) }
+            }
+        }
     }
 
     private val noteTitleAdapter = NoteTitleAdapter()
@@ -130,36 +137,34 @@ class NoteActivity : BaseActivity<ActivityNoteBinding, NoteViewModel>() {
         }
     }
 
-    private fun subscribeViewModel() {
-        /* 단어장 목록 */
-        vm.noteList.observe(this, {
-            binding.apply {
-                rvNote.layoutManager = LinearLayoutManager(this@NoteActivity)
-                noteTitleAdapter.updateItem(it.toMutableList())
-                rvNote.adapter = noteTitleAdapter.apply {
-                    setNoteItemClickListener(object : NoteTitleAdapter.NoteItemClickListener {
-                        override fun titleClickListener(title: String) {
-                            openNoteDetail(title)
-                        }
+    private fun handleEvent(event: NoteViewModel.Event) {
+        when (event) {
+            /* error */
+            is NoteViewModel.Event.ShowToast -> {
+                Toast.makeText(this, event.text, Toast.LENGTH_SHORT).show()
+            }
+            /* 단어장 목록 */
+            is NoteViewModel.Event.NoteListTitle -> {
+                binding.apply {
+                    rvNote.layoutManager = LinearLayoutManager(this@NoteActivity)
+                    noteTitleAdapter.updateItem(event.noteTitles.toMutableList())
+                    rvNote.adapter = noteTitleAdapter.apply {
+                        setNoteItemClickListener(object : NoteTitleAdapter.NoteItemClickListener {
+                            override fun titleClickListener(title: String) {
+                                openNoteDetail(title)
+                            }
 
-                        override fun studyClickListener(title: String) {
-                            println(">>>>>>>>> 여기도 타이틀 >>")
-                            openCard(title)
-                        }
-                    })
+                            override fun studyClickListener(title: String) {
+                                println(">>>>>>>>> 여기도 타이틀 >>")
+                                openCard(title)
+                            }
+                        })
+                    }
                 }
             }
-        })
-
-        /* csv file title */
-        vm.csvTitle.observe(this, {
-            updateTitleList(it)
-        })
-
-        /* 에러 */
-        vm.error.observe(this, EventObserver { message ->
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-        })
+            /* csv file title */
+            is NoteViewModel.Event.CsvTitle -> { updateTitleList(event.csvTitle) }
+        }
     }
 
     private fun openNoteDetail(title: String) {
