@@ -1,5 +1,6 @@
 package com.example.bard.data.repositories
 
+import com.example.bard.data.mapper.mapWordEntityToAddContent
 import com.example.bard.data.source.local.DsDataBase
 import com.example.bard.data.source.local.entity.DsNoteEntity
 import com.example.bard.data.source.local.entity.DsWordEntity
@@ -28,8 +29,8 @@ class NoteRepositoryImpl @Inject constructor(
     }
 
 
-    override suspend fun getNoteId(title: String) = withContext(ioDispatcher) {
-        db.noteDao().getNoteEntityByTitle(title)
+    override suspend fun getNoteId(title: String): Int = withContext(ioDispatcher) {
+        db.noteDao().getNoteEntityByTitle(title).id
     }
 
     override suspend fun getAllNoteTitle() = withContext(ioDispatcher) {
@@ -37,10 +38,10 @@ class NoteRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getNoteById(noteId: Int) = withContext(ioDispatcher) {
-        db.noteDao().getTitleById(noteId) to db.wordDao().getWordById(noteId)
+        db.noteDao().getTitleById(noteId) to mapWordEntityToAddContent(db.wordDao().getWordById(noteId))
     }
 
     override suspend fun getWordsByTitle(title: String) = withContext(ioDispatcher) {
-        db.wordDao().getWordById(db.noteDao().getNoteEntityByTitle(title).id)
+        mapWordEntityToAddContent(db.wordDao().getWordById(db.noteDao().getNoteEntityByTitle(title).id))
     }
 }

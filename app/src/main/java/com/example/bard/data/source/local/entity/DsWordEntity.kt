@@ -40,8 +40,5 @@ data class DsWordEntity(
                 meaning = item.meaning,
             )
         }
-
-        /* data 계층으로 로직 분리 */
-        fun makeAddContent(data: List<DsWordEntity>) = data.map { AddContent(it.word, it.meaning) }
     }
 }

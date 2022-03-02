@@ -30,7 +30,7 @@ class DetailViewModel @Inject constructor(
 
     fun findIdByTitle(title: String) {
         viewModelScope.launch {
-            event(DetailEvent.NoteId(getNoteUseCase(title).id))
+            event(DetailEvent.NoteId(getNoteUseCase(title)))
         }
     }
 
