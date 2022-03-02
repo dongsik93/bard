@@ -1,4 +1,4 @@
-package com.example.bard.di.annotation
+package com.example.bard.presentation.di.annotation
 
 import javax.inject.Qualifier
 

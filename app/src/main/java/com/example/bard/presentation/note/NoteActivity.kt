@@ -12,7 +12,7 @@ import androidx.core.app.ActivityCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bard.BR
-import com.example.bard.BardBase.Companion.appContext
+import com.example.bard.presentation.BardBase.Companion.appContext
 import com.example.bard.R
 import com.example.bard.databinding.ActivityNoteBinding
 import com.example.bard.presentation.base.BaseActivity
@@ -20,7 +20,7 @@ import com.example.bard.presentation.base.OnSingleClickListener
 import com.example.bard.presentation.card.CardActivity
 import com.example.bard.presentation.detail.DetailActivity
 import com.example.bard.presentation.ext.repeatOnStart
-import com.example.bard.utils.Constants
+import com.example.bard.presentation.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

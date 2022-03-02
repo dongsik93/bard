@@ -4,7 +4,7 @@ import android.net.Uri
 import com.example.bard.domain.model.AddContent
 import com.example.bard.domain.model.NoteData
 import com.example.bard.domain.repositories.NoteRepository
-import com.example.bard.utils.CsvUtils
+import com.example.bard.presentation.utils.CsvUtils
 import java.io.File
 import javax.inject.Inject
 

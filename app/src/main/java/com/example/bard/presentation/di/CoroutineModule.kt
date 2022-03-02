@@ -1,6 +1,6 @@
-package com.example.bard.di
+package com.example.bard.presentation.di
 
-import com.example.bard.di.annotation.IoDispatcher
+import com.example.bard.presentation.di.annotation.IoDispatcher
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

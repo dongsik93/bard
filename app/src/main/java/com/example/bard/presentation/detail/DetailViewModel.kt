@@ -22,11 +22,11 @@ class DetailViewModel @Inject constructor(
     private val _eventFlow = MutableSharedFlow<DetailEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
-    fun findWordByTitle(title: String) {
-        viewModelScope.launch {
-            event(DetailEvent.WordList(getWordsByTitleUseCase(title)))
-        }
-    }
+//    fun findWordByTitle(title: String)
+//        viewModelScope.launch {
+//            event(DetailEvent.WordList(getWordsByTitleUseCase(title)))
+//        }
+//    }
 
     fun findIdByTitle(title: String) {
         viewModelScope.launch {

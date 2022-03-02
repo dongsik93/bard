@@ -6,6 +6,7 @@ import com.example.bard.domain.usecases.GetAllNoteTitleUseCase
 import com.example.bard.domain.usecases.SetUriUseCase
 import com.example.bard.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
@@ -31,7 +32,7 @@ class NoteViewModel @Inject constructor(
     }
 
     fun saveUri(uri: Uri?) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             event(NoteEvent.CsvTitle(setUriUseCase(uri)))
         }
     }

@@ -1,4 +1,4 @@
-package com.example.bard.di
+package com.example.bard.presentation.di
 
 import android.content.Context
 import com.example.bard.data.source.remote.RetrofitService

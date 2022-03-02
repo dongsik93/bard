@@ -15,7 +15,7 @@ import com.example.bard.presentation.add.AddActivity
 import com.example.bard.presentation.base.BaseActivity
 import com.example.bard.presentation.base.OnSingleClickListener
 import com.example.bard.presentation.ext.repeatOnStart
-import com.example.bard.utils.Constants
+import com.example.bard.presentation.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

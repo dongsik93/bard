@@ -1,8 +1,8 @@
-package com.example.bard.di
+package com.example.bard.presentation.di
 
 import com.example.bard.data.repositories.NoteRepositoryImpl
 import com.example.bard.data.source.local.DsDataBase
-import com.example.bard.di.annotation.IoDispatcher
+import com.example.bard.presentation.di.annotation.IoDispatcher
 import com.example.bard.domain.repositories.NoteRepository
 import dagger.Module
 import dagger.Provides
