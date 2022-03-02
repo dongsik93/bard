@@ -1,4 +1,4 @@
-package com.example.bard.presentation.card
+package com.example.bard.presentation.views.card
 
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter

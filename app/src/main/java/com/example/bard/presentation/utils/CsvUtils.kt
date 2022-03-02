@@ -3,7 +3,7 @@ package com.example.bard.presentation.utils
 import android.content.Context
 import android.net.Uri
 import android.provider.MediaStore
-import com.example.bard.presentation.BardBase.Companion.appContext
+import com.example.bard.presentation.base.BardBase.Companion.appContext
 import com.opencsv.CSVReader
 import java.io.*
 

@@ -1,4 +1,4 @@
-package com.example.bard.presentation
+package com.example.bard.presentation.base
 
 import android.app.Application
 import android.content.Context

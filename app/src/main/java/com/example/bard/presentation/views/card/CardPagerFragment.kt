@@ -1,4 +1,4 @@
-package com.example.bard.presentation.card
+package com.example.bard.presentation.views.card
 
 import android.animation.*
 import android.graphics.drawable.AnimatedVectorDrawable

@@ -1,4 +1,4 @@
-package com.example.bard.presentation.card
+package com.example.bard.presentation.views.card
 
 import androidx.activity.viewModels
 import androidx.viewpager2.widget.ViewPager2

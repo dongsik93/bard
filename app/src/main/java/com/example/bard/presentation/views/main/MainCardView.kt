@@ -1,4 +1,4 @@
-package com.example.bard.presentation
+package com.example.bard.presentation.views.main
 
 import android.content.Context
 import android.content.res.ColorStateList

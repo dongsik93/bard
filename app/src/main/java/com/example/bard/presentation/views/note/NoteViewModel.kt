@@ -1,4 +1,4 @@
-package com.example.bard.presentation.note
+package com.example.bard.presentation.views.note
 
 import android.net.Uri
 import androidx.lifecycle.viewModelScope

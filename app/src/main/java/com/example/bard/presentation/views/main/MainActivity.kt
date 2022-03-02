@@ -1,4 +1,4 @@
-package com.example.bard.presentation
+package com.example.bard.presentation.views.main
 
 import android.app.Activity
 import android.content.Intent
@@ -9,10 +9,10 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.bard.BR
 import com.example.bard.R
 import com.example.bard.databinding.ActivityMainBinding
-import com.example.bard.presentation.add.AddActivity
+import com.example.bard.presentation.views.add.AddActivity
 import com.example.bard.presentation.base.BaseActivity
-import com.example.bard.presentation.card.CardActivity
-import com.example.bard.presentation.note.NoteActivity
+import com.example.bard.presentation.views.card.CardActivity
+import com.example.bard.presentation.views.note.NoteActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

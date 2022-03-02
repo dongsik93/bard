@@ -1,4 +1,4 @@
-package com.example.bard.presentation.add
+package com.example.bard.presentation.views.add
 
 import androidx.lifecycle.viewModelScope
 import com.example.bard.domain.model.NoteData

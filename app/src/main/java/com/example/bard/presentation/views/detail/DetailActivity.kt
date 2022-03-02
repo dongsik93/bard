@@ -1,4 +1,4 @@
-package com.example.bard.presentation.detail
+package com.example.bard.presentation.views.detail
 
 import android.app.Activity
 import android.content.Intent
@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bard.BR
 import com.example.bard.R
 import com.example.bard.databinding.ActivityDetailBinding
-import com.example.bard.presentation.add.AddActivity
+import com.example.bard.presentation.views.add.AddActivity
 import com.example.bard.presentation.base.BaseActivity
 import com.example.bard.presentation.base.OnSingleClickListener
 import com.example.bard.presentation.ext.repeatOnStart

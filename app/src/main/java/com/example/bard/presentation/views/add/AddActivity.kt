@@ -1,4 +1,4 @@
-package com.example.bard.presentation.add
+package com.example.bard.presentation.views.add
 
 import android.content.Intent
 import android.view.View

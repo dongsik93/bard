@@ -44,7 +44,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_main_title"
             app:layout_constraintBottom_toBottomOf="parent">
 
-            <com.example.bard.presentation.MainCardView
+            <com.example.bard.presentation.views.main.MainCardView
                 android:id="@+id/mcv_add"
                 android:layout_width="@dimen/md_0"
                 android:layout_height="@dimen/md_180"
@@ -57,7 +57,7 @@
                 app:cardColor="@color/card1"
                 app:cardIcon="@drawable/ic_card1"/>
 
-            <com.example.bard.presentation.MainCardView
+            <com.example.bard.presentation.views.main.MainCardView
                 android:id="@+id/mcv_list"
                 android:layout_width="@dimen/md_0"
                 android:layout_height="@dimen/md_180"
@@ -70,7 +70,7 @@
                 app:cardColor="@color/card2"
                 app:cardIcon="@drawable/ic_card2"/>
 
-            <com.example.bard.presentation.MainCardView
+            <com.example.bard.presentation.views.main.MainCardView
                 android:id="@+id/mcv_study"
                 android:layout_width="@dimen/md_0"
                 android:layout_height="@dimen/md_180"
@@ -84,7 +84,7 @@
                 app:cardColor="@color/card3"
                 app:cardIcon="@drawable/ic_card3"/>
 
-            <com.example.bard.presentation.MainCardView
+            <com.example.bard.presentation.views.main.MainCardView
                 android:id="@+id/mcv_etc"
                 android:layout_width="@dimen/md_0"
                 android:layout_height="@dimen/md_180"

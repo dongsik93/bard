@@ -1,4 +1,4 @@
-package com.example.bard.presentation.detail
+package com.example.bard.presentation.views.detail
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
